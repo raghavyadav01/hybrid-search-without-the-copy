@@ -1,0 +1,2 @@
+{"name": "pinot_et_vector", "ndcg@10": 0.3405, "n_ndcg@10": 22458, "recall@100": 0.5845, "n_recall@100": 22457, "recall_es@100": 0.5107, "n_recall_es@100": 22458, "queries_with_empty_result": 0}
+{"latency": {"warmup_excluded": 200, "n": 22258, "client_ms_p50": 159.9, "client_ms_p95": 233.0, "client_ms_p99": 256.6, "broker_ms_p50": 152.0, "broker_ms_p95": 225.0, "broker_ms_p99": 247.0, "client_ms_mean": 157.7, "note": "from the quality run (concurrency 8); see pinot_et_latency.json for the isolated pass"}, "errors": 0}

@@ -1,0 +1,89 @@
+# Table 1 — ESCI (US) retrieval quality: lake-native vs local copy vs search engines
+
+All 22,458 queries of the ESCI US test split; every row is averaged over exactly these queries. nDCG@10 with gains E=1, S=0.1, C=0.01, I=0; R@100 = recall of Exact products in the top 100. Every system ran alone on the laptop (see timings.md for hardware), all reading the same 1,215,854 products and bge-base-en-v1.5 vectors from the Iceberg table `esci.products_us_pi`.
+
+| System | Mode | nDCG@10 | R@100 | run |
+|---|---|---|---|---|
+| Reference | BM25 (bm25s, exact, global stats) | 0.3083 | 0.5297 | `ref_bm25` |
+| Reference | Vector (exact cosine, faiss flat) | 0.3502 | 0.6089 | `ref_vector_exact` |
+| Reference | Hybrid RRF k=60 (client, exact lists) | 0.3606 | 0.6207 | `ref_hybrid_rrf_bm25` |
+| Reference | Hybrid RRF + filter (brand IS NOT NULL, exact) | 0.3417 | 0.5880 | `ref_hybrid_rrf_brand` |
+| Pinot External Table | BM25, per-segment IDF (TEXT_SCORE) | 0.2712 | 0.5063 | `pinot_et_bm25` |
+| Pinot External Table | BM25, global stats (TEXT_SCORE_STATS + TEXT_SCORE) | 0.3116 | 0.5325 | `pinot_et_bm25_global` |
+| Pinot External Table | Vector (HNSW, k=100/segment) | 0.3477 | 0.6025 | `pinot_et_vector` |
+| Pinot External Table | Hybrid RRF k=60, multi-stage SQL (global BM25) | 0.3610 | 0.6221 | `pinot_et_hybrid_sql` |
+| Pinot External Table | Hybrid RRF k=60, multi-stage SQL (per-segment BM25) | n/a | n/a | `pinot_et_hybrid_sql_perseg` (missing) |
+| Pinot External Table | Hybrid RRF k=60, client-side (global BM25 + vector runs) | 0.3605 | 0.6220 | `pinot_et_hybrid_client` |
+| Pinot External Table | Hybrid RRF + filter (brand IS NOT NULL), SQL | n/a | n/a | `pinot_et_hybrid_filter` (missing) |
+| Pinot local copy | BM25, per-segment IDF (TEXT_SCORE) | 0.2712 | 0.5063 | `pinot_local_bm25` |
+| Pinot local copy | BM25, global stats (TEXT_SCORE_STATS + TEXT_SCORE) | 0.3116 | 0.5325 | `pinot_local_bm25_global` |
+| Pinot local copy | Vector (HNSW, k=100/segment) | 0.3477 | 0.6025 | `pinot_local_vector` |
+| Pinot local copy | Hybrid RRF k=60, multi-stage SQL (global BM25) | 0.3610 | 0.6221 | `pinot_local_hybrid_sql` |
+| Pinot local copy | Hybrid RRF k=60, multi-stage SQL (per-segment BM25) | n/a | n/a | `pinot_local_hybrid_sql_perseg` (missing) |
+| Pinot local copy | Hybrid RRF k=60, client-side | 0.3606 | 0.6220 | `pinot_local_hybrid_client` |
+| Pinot local copy | Hybrid RRF + filter (brand IS NOT NULL), SQL | 0.3424 | 0.5887 | `pinot_local_hybrid_filter` |
+| Elasticsearch | BM25 (match) | 0.3116 | 0.5325 | `es_bm25` |
+| Elasticsearch | kNN (HNSW, num_candidates=200) | 0.3233 | 0.5650 | `es_knn` |
+| Elasticsearch | Hybrid RRF k=60, native retriever.rrf | 0.3446 | 0.6161 | `es_hybrid_native` |
+| Elasticsearch | Hybrid RRF k=60, client-side | 0.3450 | 0.6162 | `es_hybrid_client` |
+| Elasticsearch | kNN (HNSW, num_candidates=1000) | 0.3385 | 0.5883 | `es_knn_c1000` |
+| Elasticsearch | Hybrid RRF k=60, native retriever.rrf (num_candidates=1000) | 0.3540 | 0.6199 | `es_hybrid_native_c1000` |
+| Elasticsearch | Hybrid RRF k=60, client-side (num_candidates=1000) | 0.3543 | 0.6200 | `es_hybrid_client_c1000` |
+| OpenSearch | BM25 (match) | 0.3116 | 0.5325 | `os_bm25` |
+| OpenSearch | kNN (HNSW lucene, ef_search=200) | 0.3275 | 0.5700 | `os_knn` |
+| OpenSearch | Hybrid RRF k=60, native score-ranker | 0.3475 | 0.6166 | `os_hybrid_native` |
+| OpenSearch | Hybrid RRF k=60, client-side | 0.3479 | 0.6167 | `os_hybrid_client` |
+| OpenSearch | kNN (HNSW lucene, ef_search=1000) | 0.3416 | 0.5926 | `os_knn_c1000` |
+| OpenSearch | Hybrid RRF k=60, native score-ranker (ef_search=1000) | 0.3562 | 0.6205 | `os_hybrid_native_c1000` |
+| OpenSearch | Hybrid RRF k=60, client-side (ef_search=1000) | 0.3565 | 0.6206 | `os_hybrid_client_c1000` |
+
+## Paired significance (per-query nDCG@10)
+
+Two-sided paired randomisation test (sign flip, 10,000 permutations, seed 2026) and paired t-test over the per-query nDCG@10 of the two runs.
+
+| Comparison | A | B | Δ (A−B) | p (randomisation) | p (t-test) | A wins / B wins / ties |
+|---|---|---|---|---|---|---|
+| Pinot ET hybrid SQL vs Elasticsearch native RRF | 0.3610 | 0.3446 | +0.0164 | <0.0001 | 7.57e-134 | 3678 / 2857 / 15923 |
+| Pinot ET hybrid SQL vs OpenSearch native RRF | 0.3610 | 0.3475 | +0.0135 | <0.0001 | 2.56e-102 | 3488 / 2736 / 16234 |
+| Pinot ET hybrid SQL vs Elasticsearch client RRF | 0.3610 | 0.3450 | +0.0160 | <0.0001 | 5.97e-130 | 3424 / 2680 / 16354 |
+| Pinot ET hybrid SQL vs OpenSearch client RRF | 0.3610 | 0.3479 | +0.0131 | <0.0001 | 2.05e-98 | 3181 / 2561 / 16716 |
+| Pinot ET vs local: BM25 per-segment | 0.2712 | 0.2712 | +0.0000 | 1.0000 | nan | 0 / 0 / 22458 |
+| Pinot ET vs local: BM25 global | 0.3116 | 0.3116 | +0.0000 | 0.9663 | 9.68e-01 | 760 / 756 / 20942 |
+| Pinot ET vs local: vector | 0.3477 | 0.3477 | +0.0000 | 0.2261 | 2.23e-01 | 52 / 37 / 22369 |
+| Pinot ET vs local: hybrid SQL | 0.3610 | 0.3610 | +0.0000 | 0.1611 | 1.60e-01 | 20 / 5 / 22433 |
+| Pinot ET vs local: hybrid SQL per-segment | n/a | n/a | n/a | n/a | n/a | n/a |
+| Pinot ET vs local: hybrid + filter | n/a | n/a | n/a | n/a | n/a | n/a |
+| Pinot ET BM25 global vs per-segment | 0.3116 | 0.2712 | +0.0403 | <0.0001 | 0.00e+00 | 10034 / 3685 / 8739 |
+| Pinot ET hybrid SQL global vs per-segment BM25 | n/a | n/a | n/a | n/a | n/a | n/a |
+| Pinot ET hybrid + filter vs filtered exact reference | n/a | n/a | n/a | n/a | n/a | n/a |
+| Pinot ET hybrid SQL vs exact reference hybrid | 0.3610 | 0.3606 | +0.0003 | 0.4482 | 4.51e-01 | 5554 / 4879 / 12025 |
+| Pinot ET BM25 global vs Elasticsearch BM25 | 0.3116 | 0.3116 | -0.0001 | 0.4906 | 4.92e-01 | 1261 / 1447 / 19750 |
+| Pinot ET vector vs Elasticsearch kNN | 0.3477 | 0.3233 | +0.0244 | <0.0001 | 7.65e-157 | 1812 / 1317 / 19329 |
+| Pinot ET vector vs OpenSearch kNN | 0.3477 | 0.3275 | +0.0202 | <0.0001 | 1.72e-123 | 1644 / 1263 / 19551 |
+| Pinot ET hybrid SQL vs Elasticsearch native RRF (num_candidates=1000) | 0.3610 | 0.3540 | +0.0070 | <0.0001 | 1.67e-46 | 2863 / 2281 / 17314 |
+| Pinot ET hybrid SQL vs OpenSearch native RRF (ef_search=1000) | 0.3610 | 0.3562 | +0.0047 | <0.0001 | 1.11e-25 | 2690 / 2167 / 17601 |
+| Pinot ET hybrid SQL vs Elasticsearch client RRF (num_candidates=1000) | 0.3610 | 0.3543 | +0.0067 | <0.0001 | 6.54e-44 | 2538 / 2047 / 17873 |
+| Pinot ET hybrid SQL vs OpenSearch client RRF (ef_search=1000) | 0.3610 | 0.3565 | +0.0045 | <0.0001 | 7.97e-24 | 2303 / 1915 / 18240 |
+| Pinot ET vector vs Elasticsearch kNN (num_candidates=1000) | 0.3477 | 0.3385 | +0.0092 | <0.0001 | 3.20e-48 | 1164 / 843 / 20451 |
+| Pinot ET vector vs OpenSearch kNN (ef_search=1000) | 0.3477 | 0.3416 | +0.0061 | <0.0001 | 1.65e-25 | 1041 / 706 / 20711 |
+
+## Approximate kNN vs the exact reference (matched recall)
+
+Top-100 overlap with the exact cosine top-100 (`ref_vector_exact`), averaged per query, and R@100 of each run next to the exact R@100.
+
+| Run | R@100 | exact R@100 | ΔR@100 | mean overlap with exact top-100 |
+|---|---|---|---|---|
+| `pinot_et_vector` | 0.6025 | 0.6089 | -0.0064 | 0.969 |
+| `pinot_local_vector` | 0.6025 | 0.6089 | -0.0064 | 0.969 |
+| `es_knn` | 0.5650 | 0.6089 | -0.0439 | 0.861 |
+| `es_knn_c1000` | 0.5883 | 0.6089 | -0.0206 | 0.942 |
+| `os_knn` | 0.5700 | 0.6089 | -0.0389 | 0.879 |
+| `os_knn_c1000` | 0.5926 | 0.6089 | -0.0163 | 0.958 |
+
+## Notes
+
+- Pinot BM25 = Lucene BM25Similarity (k1=1.2, b=0.75), StandardAnalyzer + 33 English stop words, no stemming; ES/OS = `standard` + `_english_` stop words, the same BM25. Per-segment IDF: each Pinot segment (one per Parquet file, 33) is its own Lucene index; global stats: two-step `TEXT_SCORE_STATS` then 4-argument `TEXT_SCORE` (text-score-design.md §7), latency includes both requests.
+- Pinot vector: HNSW (M=16, beamWidth=100), cosine, top-100 per segment, vectorEfSearch unset; ES/OS: HNSW m=16 ef_construction=100, float32, num_candidates/ef_search=200, one shard.
+- Pinot hybrid SQL: RRF k=60 over the two top-100 lists in one multi-stage query; the filter row applies `brand IS NOT NULL` inside both retrievers (enableNullHandling=true). Global BM25 statistics ignore the filter (as ES DFS does).
+- References: bm25s (exact BM25, one global index) and exact cosine top-100; filtered references restrict both to branded products (ref_filter.py).
+MISSING: ['pinot_et_hybrid_sql_perseg', 'pinot_et_hybrid_filter', 'pinot_local_hybrid_sql_perseg']

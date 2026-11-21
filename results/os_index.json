@@ -1,0 +1,89 @@
+{
+  "engine": "os",
+  "index": "esci_products",
+  "version": {
+    "distribution": "opensearch",
+    "number": "3.9.0",
+    "build_type": "tar",
+    "build_hash": "4ee42a94e87f66fbf1e62a9871b1b87f91e02472",
+    "build_date": "2026-09-23T01:00:48.264305421Z",
+    "build_snapshot": false,
+    "lucene_version": "10.5.1",
+    "minimum_wire_compatibility_version": "2.19.0",
+    "minimum_index_compatibility_version": "2.0.0"
+  },
+  "docs_sent": 1215854,
+  "docs_indexed": 1215854,
+  "bulk_errors": 0,
+  "error_sample": [],
+  "bulk_workers": 4,
+  "bulk_docs": 500,
+  "bulk_secs": 529.4,
+  "input_load_secs": 0.7,
+  "input_parquet_read_secs_sum": 87.7,
+  "input": "esci.products_us_pi (Iceberg data files on MinIO)",
+  "doc_prep_secs_sum": 428.6,
+  "bulk_post_secs_sum": 1619.4,
+  "refresh_secs": 0.6,
+  "merge_settle_secs": 220.9,
+  "index_secs_total": 750.9,
+  "segments_before_force_merge": 32,
+  "force_merge_secs": 290.5,
+  "force_merge_http_status": 200,
+  "index_secs_total_incl_force_merge": 1041.4,
+  "store_bytes": 4286158617,
+  "segments": 1,
+  "data_dir_bytes": 4286546063,
+  "mapping": {
+    "settings": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "refresh_interval": "-1",
+      "analysis": {
+        "analyzer": {
+          "std_english_stop": {
+            "type": "standard",
+            "stopwords": "_english_"
+          }
+        }
+      },
+      "index.knn": true
+    },
+    "mappings": {
+      "_source": {
+        "enabled": false
+      },
+      "properties": {
+        "product_id": {
+          "type": "keyword"
+        },
+        "brand": {
+          "type": "keyword",
+          "ignore_above": 512
+        },
+        "color": {
+          "type": "keyword",
+          "ignore_above": 512
+        },
+        "text": {
+          "type": "text",
+          "analyzer": "std_english_stop"
+        },
+        "embedding": {
+          "type": "knn_vector",
+          "dimension": 768,
+          "method": {
+            "name": "hnsw",
+            "engine": "lucene",
+            "space_type": "innerproduct",
+            "parameters": {
+              "m": 16,
+              "ef_construction": 100
+            }
+          }
+        }
+      }
+    }
+  },
+  "written_at": "2026-10-24T16:21:54"
+}

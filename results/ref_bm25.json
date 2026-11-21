@@ -1,0 +1,30 @@
+{
+  "name": "ref_bm25",
+  "qrels": "esci-us-test-large",
+  "config": {
+    "engine": "bm25s 0.3.15",
+    "method": "lucene",
+    "k1": 1.2,
+    "b": 0.75,
+    "stopwords": "en",
+    "stemmer": null,
+    "field": "text",
+    "k": 100,
+    "index_secs": 335.5
+  },
+  "metrics": {
+    "ndcg@10": 0.3083,
+    "n_ndcg@10": 22458,
+    "recall@100": 0.5297,
+    "n_recall@100": 22457,
+    "recall_es@100": 0.4555,
+    "n_recall_es@100": 22458,
+    "queries_with_empty_result": 0
+  },
+  "timing": {
+    "wall_secs": 106.1,
+    "queries": 22458,
+    "mean_secs_per_query": 0.00471
+  },
+  "written_at": "2026-10-23T16:38:24"
+}

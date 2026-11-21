@@ -1,0 +1,74 @@
+{
+  "pinot_et": {
+    "runs": [
+      {
+        "run": 1,
+        "snapshot_id": 2231036289515585740,
+        "new_files": [
+          "s3://YOUR-BUCKET/warehouse/esci/products_us_pi/data/locale=us/00000-0-5830c94c-b214-4218-b1a3-5de2565661b5.parquet"
+        ],
+        "commit_wall_s": 1.26,
+        "table_rows_after": 1225854,
+        "id_prefix": "FRSH01",
+        "sync_trigger": "POST /tasks/schedule right after commit (no periodic schedule configured)",
+        "trigger_call_s": 4.43,
+        "schedule_response": "{\"generationErrors\":\"\",\"ExternalTableSyncTask\":\"\",\"schedulingErrors\":\"\"}",
+        "commit_to_registered_s": 4.63,
+        "commit_to_segment_online_s": 4.63,
+        "segment_load_and_index_build_s": 0.0,
+        "commit_to_searchable_s": 4.86,
+        "new_segments": [
+          "45fa447f3277fa5c65ea48f8ccc4991a"
+        ]
+      },
+      {
+        "run": 2,
+        "snapshot_id": 1459007870476756985,
+        "new_files": [
+          "s3://YOUR-BUCKET/warehouse/esci/products_us_pi/data/locale=us/00000-0-53eff62b-1d69-4d4f-8648-7f7121b55607.parquet"
+        ],
+        "commit_wall_s": 1.02,
+        "table_rows_after": 1235854,
+        "id_prefix": "FRSH02",
+        "sync_trigger": "POST /tasks/schedule right after commit (no periodic schedule configured)",
+        "trigger_call_s": 3.38,
+        "schedule_response": "{\"generationErrors\":\"\",\"ExternalTableSyncTask\":\"\",\"schedulingErrors\":\"\"}",
+        "commit_to_registered_s": 3.61,
+        "commit_to_segment_online_s": 3.61,
+        "segment_load_and_index_build_s": 0.0,
+        "commit_to_searchable_s": 3.8,
+        "new_segments": [
+          "6b6b2be1f0fef46a07dd4d6d9b9f3a56"
+        ]
+      },
+      {
+        "run": 3,
+        "snapshot_id": 7512325133558221651,
+        "new_files": [
+          "s3://YOUR-BUCKET/warehouse/esci/products_us_pi/data/locale=us/00000-0-5cd35010-37fd-413d-ae37-cf3758167759.parquet"
+        ],
+        "commit_wall_s": 1.07,
+        "table_rows_after": 1245854,
+        "id_prefix": "FRSH03",
+        "sync_trigger": "POST /tasks/schedule right after commit (no periodic schedule configured)",
+        "trigger_call_s": 3.34,
+        "schedule_response": "{\"generationErrors\":\"\",\"ExternalTableSyncTask\":\"\",\"schedulingErrors\":\"\"}",
+        "commit_to_registered_s": 3.6,
+        "commit_to_segment_online_s": 3.6,
+        "segment_load_and_index_build_s": 0.0,
+        "commit_to_searchable_s": 3.77,
+        "new_segments": [
+          "b50dc031927f58977824d441044bc9c2"
+        ]
+      }
+    ],
+    "median": {
+      "commit_wall_s": 1.07,
+      "trigger_call_s": 3.38,
+      "commit_to_registered_s": 3.61,
+      "commit_to_segment_online_s": 3.61,
+      "segment_load_and_index_build_s": 0.0,
+      "commit_to_searchable_s": 3.8
+    }
+  }
+}

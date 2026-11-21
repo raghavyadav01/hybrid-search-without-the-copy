@@ -1,0 +1,44 @@
+{
+  "name": "os_bm25",
+  "qrels": "esci-us-test-large",
+  "config": {
+    "engine": "OpenSearch 3.9.0",
+    "index": "esci_products",
+    "mode": "bm25",
+    "k": 100,
+    "text_analyzer": "standard tokenizer + lowercase + _english_ stop (33 words), no stemming",
+    "bm25": "Lucene BM25Similarity k1=1.2 b=0.75 (1 shard)",
+    "concurrency": 8
+  },
+  "metrics": {
+    "ndcg@10": 0.3116,
+    "n_ndcg@10": 22458,
+    "recall@100": 0.5325,
+    "n_recall@100": 22457,
+    "recall_es@100": 0.4573,
+    "n_recall_es@100": 22458,
+    "queries_with_empty_result": 110
+  },
+  "timing": {
+    "wall_secs": 20.0,
+    "queries": 22458,
+    "mean_secs_per_query": 0.00089
+  },
+  "written_at": "2026-10-24T16:22:22",
+  "latency": {
+    "warmup_excluded": 500,
+    "n": 21958,
+    "client_ms_p50": 6.1,
+    "client_ms_p95": 10.7,
+    "client_ms_p99": 14.8,
+    "server_took_ms_p50": 1.0,
+    "server_took_ms_p95": 4.0,
+    "server_took_ms_p99": 7.0,
+    "client_ms_mean": 6.6,
+    "note": "from the quality run (concurrency 8, engine alone on the laptop); see os_latency.json for the isolated pass"
+  },
+  "errors": {
+    "count": 0,
+    "sample": []
+  }
+}

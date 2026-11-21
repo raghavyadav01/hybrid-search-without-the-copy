@@ -1,0 +1,109 @@
+{
+  "generated": "2026-10-24T17:40:36",
+  "lake_table": "esci.products_us_pi",
+  "context": "Pinot cluster (1 JVM: ZK, controller, broker, 3 servers, minion; -Xmx8g) alone on the laptop; MinIO + Iceberg REST in Docker",
+  "esci_local": {
+    "method": "standalone SegmentCreationAndMetadataPush job (3 threads) reading the 33 Parquet files of esci.products_us_pi from MinIO; t0 = job start",
+    "ingestion_job": {
+      "segments": 33,
+      "wall_s": 754.0,
+      "per_segment_total_create": {
+        "n": 33,
+        "mean_s": 58.3,
+        "p50_s": 58.1,
+        "max_s": 64.8,
+        "sum_s": 1923.3
+      },
+      "per_segment_record_indexing_incl_hnsw_insert_and_text_docs": {
+        "n": 33,
+        "mean_s": 20.8,
+        "p50_s": 20.6,
+        "max_s": 23.7,
+        "sum_s": 685.5
+      },
+      "per_segment_hnsw_seal_merge": {
+        "n": 33,
+        "mean_s": 29.8,
+        "p50_s": 29.8,
+        "max_s": 32.3,
+        "sum_s": 983.9
+      },
+      "per_segment_text_index_finish": {
+        "n": 33,
+        "mean_s": 0.2,
+        "p50_s": 0.2,
+        "max_s": 0.4,
+        "sum_s": 6.9
+      },
+      "per_segment_tar": {
+        "n": 33,
+        "mean_s": 9.9,
+        "p50_s": 9.9,
+        "max_s": 10.4,
+        "sum_s": 326.6
+      }
+    },
+    "job_wall_s(t0 -> job exit)": 761.7,
+    "per_segment_server_load(download+untar+open)": {
+      "n": 33,
+      "mean_s": 12.9,
+      "p50_s": 12.2,
+      "max_s": 18.7,
+      "sum_s": 427.1
+    },
+    "watch_segments": 33,
+    "watch_all_segments_in_idealstate_s": 761.9,
+    "watch_first_segment_online_s": 766.5,
+    "watch_all_segments_online_s(time to fully queryable)": 780.4,
+    "watch_poll_interval_s": 2,
+    "index_sizes": {
+      "segments": 33,
+      "bytes_by_index_type": {
+        "dictionary": 89478880,
+        "forward_index": 4924680636,
+        "nullvalue_vector": 898390,
+        "vector_index": 3784856179,
+        "text_index": 274758990
+      },
+      "bytes_by_column_and_index": {
+        "brand": {
+          "dictionary": 49249482,
+          "forward_index": 2224793,
+          "nullvalue_vector": 96151
+        },
+        "bullet_point": {
+          "forward_index": 373221778,
+          "nullvalue_vector": 259983
+        },
+        "color": {
+          "dictionary": 28070264,
+          "forward_index": 2091235,
+          "nullvalue_vector": 271128
+        },
+        "description": {
+          "forward_index": 290838889,
+          "nullvalue_vector": 271128
+        },
+        "embedding": {
+          "forward_index": 3753488091,
+          "vector_index": 3784856179
+        },
+        "locale": {
+          "dictionary": 330,
+          "forward_index": 528
+        },
+        "product_id": {
+          "dictionary": 12158804,
+          "forward_index": 2431972
+        },
+        "text": {
+          "text_index": 274758990,
+          "forward_index": 427827153
+        },
+        "title": {
+          "forward_index": 72556197
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,2 @@
+{"name": "os_hybrid_native_c1000", "ndcg@10": 0.3562, "n_ndcg@10": 22458, "recall@100": 0.6205, "n_recall@100": 22457, "recall_es@100": 0.5381, "n_recall_es@100": 22458, "queries_with_empty_result": 0}
+{"latency": {"warmup_excluded": 500, "n": 21958, "client_ms_p50": 18.1, "client_ms_p95": 37.6, "client_ms_p99": 69.2, "server_took_ms_p50": 10.0, "server_took_ms_p95": 25.0, "server_took_ms_p99": 53.0, "client_ms_mean": 21.0, "note": "from the quality run (concurrency 8, engine alone on the laptop); see os_latency.json for the isolated pass"}, "errors": 0}

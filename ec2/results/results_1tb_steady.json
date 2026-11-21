@@ -1,0 +1,35 @@
+{
+  "pinot:bm25_brand:esci_1tbb:100": {
+    "c32": {
+      "stats_cache_hit": 0.954,
+      "n": 1000,
+      "p50": 56.0,
+      "p95": 168.4,
+      "p99": 254.4,
+      "qps": 459.3,
+      "errors": 0
+    }
+  },
+  "pinot:hybridc_brand:esci_1tbb:100": {
+    "c32": {
+      "stats_cache_hit": 0.954,
+      "n": 1000,
+      "p50": 96.1,
+      "p95": 209.7,
+      "p99": 304.1,
+      "qps": 292.2,
+      "errors": 0
+    }
+  },
+  "pinot:hybrid_brand:esci_1tbb:100": {
+    "c32": {
+      "stats_cache_hit": 0.954,
+      "n": 1000,
+      "p50": 278.6,
+      "p95": 360.1,
+      "p99": 405.0,
+      "qps": 113.9,
+      "errors": 0
+    }
+  }
+}

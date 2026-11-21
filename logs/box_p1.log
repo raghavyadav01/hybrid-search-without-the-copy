@@ -1,0 +1,52 @@
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
++ BUCKET=YOUR-BUCKET
++ REGION=us-west-2
++ ROLE=catalog
++ sudo dnf install -y -q java-25-amazon-corretto-headless docker python3-pip tar gzip
+
+Installed:
+  alsa-lib-1.2.7.2-1.amzn2023.0.5.aarch64                                       
+  cairo-1.18.0-4.amzn2023.0.3.aarch64                                           
+  container-selinux-4:2.245.0-1.amzn2023.noarch                                 
+  containerd-2.3.7-1.amzn2023.0.4.aarch64                                       
+  dejavu-sans-fonts-2.37-16.amzn2023.0.2.noarch                                 
+  dejavu-sans-mono-fonts-2.37-16.amzn2023.0.2.noarch                            
+  dejavu-serif-fonts-2.37-16.amzn2023.0.2.noarch                                
+  docker-25.0.18-1.amzn2023.0.4.aarch64                                         
+  fontconfig-2.13.94-2.amzn2023.0.2.aarch64                                     
+  fonts-filesystem-1:2.0.5-12.amzn2023.0.2.noarch                               
+  freetype-2.13.2-5.amzn2023.0.2.aarch64                                        
+  google-noto-fonts-common-20240401-1.amzn2023.0.2.noarch                       
+  google-noto-sans-vf-fonts-20240401-1.amzn2023.0.2.noarch                      
+  graphite2-1.3.14-7.amzn2023.0.3.aarch64                                       
+  harfbuzz-7.0.0-2.amzn2023.0.2.aarch64                                         
+  iptables-libs-1.8.8-3.amzn2023.0.2.aarch64                                    
+  iptables-nft-1.8.8-3.amzn2023.0.2.aarch64                                     
+  java-25-amazon-corretto-headless-1:25.0.5.1.2-1.amzn2023.1.aarch64            
+  javapackages-filesystem-6.0.0-7.amzn2023.0.6.noarch                           
+  langpacks-core-font-en-3.0-21.amzn2023.0.4.noarch                             
+  libX11-1.8.10-2.amzn2023.0.3.aarch64                                          
+  libX11-common-1.8.10-2.amzn2023.0.3.noarch                                    
+  libXau-1.0.11-6.amzn2023.0.1.aarch64                                          
+  libXext-1.3.6-1.amzn2023.0.1.aarch64                                          
+  libXrender-0.9.11-6.amzn2023.0.2.aarch64                                      
+  libbrotli-1.1.0-1.amzn2023.0.2.aarch64                                        
+  libcgroup-3.0-1.amzn2023.0.1.aarch64                                          
+  libjpeg-turbo-2.1.4-2.amzn2023.0.5.aarch64                                    
+  libnetfilter_conntrack-1.0.8-2.amzn2023.0.2.aarch64                           
+  libnfnetlink-1.0.1-19.amzn2023.0.2.aarch64                                    
+  libnftnl-1.2.2-2.amzn2023.0.2.aarch64                                         
+  libpng-2:1.6.37-10.amzn2023.0.13.aarch64                                      
+  libxcb-1.17.0-1.amzn2023.0.1.aarch64                                          
+  pigz-2.5-1.amzn2023.0.4.aarch64                                               
+  pixman-0.43.4-1.amzn2023.0.4.aarch64                                          
+  python3-pip-21.3.1-2.amzn2023.0.22.noarch                                     
+  runc-1.4.3-1.amzn2023.0.3.aarch64                                             
+  xml-common-0.6.3-56.amzn2023.0.2.noarch                                       
+
++ sudo systemctl enable --now docker
+Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /usr/lib/systemd/system/docker.service.
++ pip3 install -q --user 'pyiceberg[s3fs,pyarrow]==0.9.1' boto3 requests
+Terminated

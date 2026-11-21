@@ -1,0 +1,1 @@
+hybrid_filter {"warmup_excluded": 0, "n": 1000, "client_ms_p50": 4411.4, "client_ms_p95": 9974.0, "client_ms_p99": 13290.8, "broker_ms_p50": 4395.0, "broker_ms_p95": 9959.5, "broker_ms_p99": 13272.1, "client_ms_mean": 4750.1, "concurrency": 8, "wall_s": 594.74, "qps": 1.7, "empty_results": 0, "errors": 0, "error_sample": []}

@@ -1,0 +1,129 @@
+{
+  "engine": "os",
+  "version": "3.9.0",
+  "index": "esci_products",
+  "context": "engine ran alone (no Pinot cluster, no other search engine) on the laptop, after a Docker Desktop restart",
+  "ingestion": {
+    "bulk_wall_secs": 529.4,
+    "bulk_workers": 4,
+    "bulk_docs_per_request": 500,
+    "docs": 1215854,
+    "input_parquet_load_secs": 0.7,
+    "client_doc_prep_secs_sum": 428.6,
+    "client_bulk_request_secs_sum": 1619.4,
+    "note": "doc prep (JSON/ndjson serialisation) runs in the 4 worker processes interleaved with posting; *_sum fields are summed over workers, so the server-side share of bulk wall time ~= bulk_wall_secs * request_sum / (prep_sum + request_sum)",
+    "est_server_share_of_bulk_wall_secs": 418.6
+  },
+  "indexing": {
+    "bulk_wall_secs": 529.4,
+    "final_refresh_secs": 0.6,
+    "merge_settle_secs": 220.9,
+    "force_merge_secs": 290.5,
+    "force_merge": "max_num_segments=1 after merges settled",
+    "segments_before_force_merge": 32,
+    "total_incl_force_merge_secs": 1041.4,
+    "total_until_searchable_and_merges_settled_secs": 750.9
+  },
+  "index_size": {
+    "store_bytes": 4286158617,
+    "data_dir_bytes(du)": 4286546063,
+    "segments_after_settle": 1,
+    "split": {
+      "vector_bytes(vec/vex/vem*)": 3782608565,
+      "other_bytes(text postings, norms, ids, keywords, ...)": 503549674
+    }
+  },
+  "query_latency_ms_from_quality_runs": {
+    "bm25": {
+      "warmup_excluded": 500,
+      "n": 21958,
+      "client_ms_p50": 6.1,
+      "client_ms_p95": 10.7,
+      "client_ms_p99": 14.8,
+      "server_took_ms_p50": 1.0,
+      "server_took_ms_p95": 4.0,
+      "server_took_ms_p99": 7.0,
+      "client_ms_mean": 6.6,
+      "note": "from the quality run (concurrency 8, engine alone on the laptop); see os_latency.json for the isolated pass"
+    },
+    "knn": {
+      "warmup_excluded": 500,
+      "n": 21958,
+      "client_ms_p50": 9.5,
+      "client_ms_p95": 15.5,
+      "client_ms_p99": 20.5,
+      "server_took_ms_p50": 2.0,
+      "server_took_ms_p95": 4.0,
+      "server_took_ms_p99": 7.0,
+      "client_ms_mean": 10.1,
+      "note": "from the quality run (concurrency 8, engine alone on the laptop); see os_latency.json for the isolated pass"
+    },
+    "hybrid_native": {
+      "warmup_excluded": 500,
+      "n": 21958,
+      "client_ms_p50": 10.8,
+      "client_ms_p95": 17.1,
+      "client_ms_p99": 21.6,
+      "server_took_ms_p50": 4.0,
+      "server_took_ms_p95": 8.0,
+      "server_took_ms_p99": 12.0,
+      "client_ms_mean": 11.4,
+      "note": "from the quality run (concurrency 8, engine alone on the laptop); see os_latency.json for the isolated pass"
+    },
+    "hybrid_client": {
+      "definition": "per query: bm25 client ms + knn client ms (sequential client); includes warm-up queries of both input runs",
+      "n": 22458,
+      "client_ms_p50": 16.2,
+      "client_ms_p95": 24.4,
+      "client_ms_p99": 34.3
+    }
+  },
+  "server_stats": {
+    "note": "cumulative shard stats since node start (index was built in this node session); times are summed across threads, not wall time",
+    "indexing_index_total": 0,
+    "indexing_index_time_secs": 0.0,
+    "indexing_throttle_time_secs": 0.0,
+    "merges_total": 0,
+    "merges_total_time_secs": 0.0,
+    "merges_total_size_bytes": 0,
+    "merges_throttled_time_secs": 0.0,
+    "refresh_total": 2,
+    "refresh_total_time_secs": 0.0,
+    "flush_total": 0,
+    "flush_total_time_secs": 0.0,
+    "store_bytes": 4286158617,
+    "segments": 1,
+    "docs": 1215854,
+    "segment_file_sizes_by_ext": {
+      "dvs": 78,
+      "fnm": 1297,
+      "nvm": 103,
+      "vex": 47419571,
+      "tmd": 375,
+      "kdd": 4151932,
+      "psm": 112,
+      "fdm": 327,
+      "kdi": 11288,
+      "dvd": 21095752,
+      "kdm": 149,
+      "vec": 3735103632,
+      "pos": 109682660,
+      "si": 827,
+      "fdt": 204306567,
+      "tim": 34470229,
+      "doc": 127983328,
+      "tip": 604962,
+      "dvm": 998,
+      "fdx": 22777,
+      "nvd": 1215913,
+      "vem": 85216,
+      "vemf": 146
+    },
+    "size_split_from_file_ext": {
+      "vector_bytes(vec/vex/vem*)": 3782608565,
+      "other_bytes(text postings, norms, ids, keywords, ...)": 503549674
+    },
+    "hnsw_build_time": "not exposed separately by the stats APIs: HNSW insertion is inside indexing_index_time and graph merging inside merges_total_time"
+  },
+  "written_at": "2026-10-24T16:26:44"
+}

@@ -1,0 +1,2 @@
+{"name": "pinot_et_hybrid_sql", "ndcg@10": 0.361, "n_ndcg@10": 22458, "recall@100": 0.6221, "n_recall@100": 22457, "recall_es@100": 0.5393, "n_recall_es@100": 22458, "queries_with_empty_result": 0}
+{"latency": {"warmup_excluded": 200, "n": 22258, "client_ms_p50": 7496.1, "client_ms_p95": 10871.4, "client_ms_p99": 12504.0, "broker_ms_p50": 7378.0, "broker_ms_p95": 10757.0, "broker_ms_p99": 12387.7, "client_ms_mean": 7132.1, "note": "from the quality run (concurrency 8); see pinot_et_latency.json for the isolated pass"}, "errors": 0}

@@ -1,0 +1,24 @@
+{
+  "pinot:bm25_brand:esci_1tbb:100": {
+    "c32": {
+      "stats_cache_hit": 0.976,
+      "n": 1000,
+      "p50": 44.2,
+      "p95": 117.7,
+      "p99": 185.4,
+      "qps": 591.4,
+      "errors": 0
+    }
+  },
+  "pinot:hybridc_brand:esci_1tbb:100": {
+    "c32": {
+      "stats_cache_hit": 0.976,
+      "n": 1000,
+      "p50": 64.8,
+      "p95": 131.8,
+      "p99": 206.5,
+      "qps": 426.2,
+      "errors": 0
+    }
+  }
+}

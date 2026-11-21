@@ -1,0 +1,38 @@
+{
+  "name": "os_hybrid_client_c1000",
+  "qrels": "esci-us-test-large",
+  "config": {
+    "engine": "OpenSearch 3.9.0",
+    "index": "esci_products",
+    "mode": "hybrid_client",
+    "k": 100,
+    "text_analyzer": "standard tokenizer + lowercase + _english_ stop (33 words), no stemming",
+    "bm25": "Lucene BM25Similarity k1=1.2 b=0.75 (1 shard)",
+    "fusion": "client-side RRF (evallib.rrf)",
+    "rrf_k": 60,
+    "inputs": [
+      "os_bm25",
+      "os_knn_c1000"
+    ],
+    "input_depth": 100,
+    "output_depth": 100
+  },
+  "metrics": {
+    "ndcg@10": 0.3565,
+    "n_ndcg@10": 22458,
+    "recall@100": 0.6206,
+    "n_recall@100": 22457,
+    "recall_es@100": 0.5382,
+    "n_recall_es@100": 22458,
+    "queries_with_empty_result": 0
+  },
+  "timing": {},
+  "written_at": "2026-10-24T16:52:40",
+  "latency": {
+    "definition": "per query: bm25 client ms + knn client ms (sequential client); includes warm-up queries of both input runs",
+    "n": 22458,
+    "client_ms_p50": 25.1,
+    "client_ms_p95": 54.4,
+    "client_ms_p99": 110.3
+  }
+}

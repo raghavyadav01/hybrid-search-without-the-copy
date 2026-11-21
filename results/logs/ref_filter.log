@@ -1,0 +1,29 @@
+shard-00000.parquet done 18s
+shard-00001.parquet done 33s
+shard-00002.parquet done 46s
+shard-00003.parquet done 62s
+shard-00004.parquet done 76s
+shard-00005.parquet done 89s
+shard-00006.parquet done 105s
+shard-00007.parquet done 121s
+shard-00008.parquet done 141s
+shard-00009.parquet done 154s
+shard-00010.parquet done 169s
+shard-00011.parquet done 181s
+shard-00012.parquet done 197s
+shard-00013.parquet done 212s
+shard-00014.parquet done 227s
+shard-00015.parquet done 240s
+shard-00016.parquet done 254s
+shard-00017.parquet done 269s
+shard-00018.parquet done 283s
+shard-00019.parquet done 295s
+shard-00020.parquet done 307s
+shard-00021.parquet done 319s
+shard-00022.parquet done 329s
+shard-00023.parquet done 343s
+shard-00024.parquet done 346s
+{"name": "ref_vector_exact_brand", "ndcg@10": 0.337, "n_ndcg@10": 22458, "recall@100": 0.5774, "n_recall@100": 22457, "recall_es@100": 0.5053, "n_recall_es@100": 22458, "queries_with_empty_result": 0}
+bm25 index 127s, branded 1143519
+{"name": "ref_bm25_brand", "ndcg@10": 0.2909, "n_ndcg@10": 22458, "recall@100": 0.4994, "n_recall@100": 22457, "recall_es@100": 0.4322, "n_recall_es@100": 22458, "queries_with_empty_result": 149}
+{"name": "ref_hybrid_rrf_brand", "ndcg@10": 0.3417, "n_ndcg@10": 22458, "recall@100": 0.588, "n_recall@100": 22457, "recall_es@100": 0.5129, "n_recall_es@100": 22458, "queries_with_empty_result": 0}

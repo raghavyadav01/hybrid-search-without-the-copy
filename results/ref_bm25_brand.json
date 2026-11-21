@@ -1,0 +1,29 @@
+{
+  "name": "ref_bm25_brand",
+  "qrels": "esci-us-test-large",
+  "config": {
+    "engine": "bm25s 0.3.15",
+    "method": "lucene",
+    "k1": 1.2,
+    "b": 0.75,
+    "stopwords": "en",
+    "stemmer": null,
+    "filter": "brand IS NOT NULL (weight_mask)",
+    "k": 100
+  },
+  "metrics": {
+    "ndcg@10": 0.2909,
+    "n_ndcg@10": 22458,
+    "recall@100": 0.4994,
+    "n_recall@100": 22457,
+    "recall_es@100": 0.4322,
+    "n_recall_es@100": 22458,
+    "queries_with_empty_result": 149
+  },
+  "timing": {
+    "wall_secs": 68.9,
+    "queries": 22458,
+    "mean_secs_per_query": 0.00308
+  },
+  "written_at": "2026-10-23T21:24:36"
+}

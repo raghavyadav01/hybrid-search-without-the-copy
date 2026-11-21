@@ -1,0 +1,21 @@
+{
+  "locale": "us",
+  "products_us": 1215854,
+  "products_us_duplicate_ids_dropped": 0,
+  "text_chars_median": 711.0,
+  "text_chars_p90": 1188.0,
+  "test_queries": 22458,
+  "test_judgments": 425762,
+  "test_queries_small_version (Task 1)": 8956,
+  "test_judgments_small_version (Task 1)": 181701,
+  "test_label_counts": {
+    "E": 277348,
+    "S": 95054,
+    "I": 42438,
+    "C": 10922
+  },
+  "test_queries_with_exact": 22457,
+  "test_judged_products_in_corpus_frac": 1.0,
+  "train_queries": 74888,
+  "train_judgments": 1393063
+}

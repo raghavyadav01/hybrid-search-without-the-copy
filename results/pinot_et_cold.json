@@ -1,0 +1,29 @@
+{
+  "query_id": "13487",
+  "query": "bassinet on wheels",
+  "bm25": {
+    "client_ms": 3014.5,
+    "broker_ms": 2987,
+    "errors": []
+  },
+  "bm25_global": {
+    "client_ms": 66.8,
+    "broker_ms": 58,
+    "errors": []
+  },
+  "vector": {
+    "client_ms": 27803.6,
+    "broker_ms": 27798,
+    "errors": []
+  },
+  "hybrid_sql": {
+    "client_ms": 1550.5,
+    "broker_ms": 1540,
+    "errors": []
+  },
+  "hybrid_filter": {
+    "client_ms": 934.2,
+    "broker_ms": 928,
+    "errors": []
+  }
+}

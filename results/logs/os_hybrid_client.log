@@ -1,0 +1,15 @@
+{"name": "os_hybrid_client", "ndcg@10": 0.3479, "n_ndcg@10": 22458, "recall@100": 0.6167, "n_recall@100": 22457, "recall_es@100": 0.5352, "n_recall_es@100": 22458, "queries_with_empty_result": 0}
+Traceback (most recent call last):
+  File "$EVAL_HOME/search_baselines.py", line 774, in <module>
+    main()
+  File "$EVAL_HOME/search_baselines.py", line 770, in main
+    run(a.engine, a.mode, a.index, a.concurrency, a.warmup, a.limit)
+  File "$EVAL_HOME/search_baselines.py", line 426, in run
+    "n": int(len(s)), "client_ms_p50": pct(s, 50), "client_ms_p95": pct(s, 95),
+                                       ^^^^^^^^^^
+  File "$EVAL_HOME/search_baselines.py", line 78, in pct
+    return round(float(np.percentile(np.asarray(xs, dtype=float), p)), 1) if xs else None
+                                                                             ^^
+  File "$EVAL_HOME/.venv/lib/python3.12/site-packages/pandas/core/generic.py", line 1445, in __bool__
+    raise ValueError(
+ValueError: The truth value of a Series is ambiguous. Use a.empty, a.item(), a.any() or a.all().

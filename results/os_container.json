@@ -1,0 +1,10 @@
+{
+  "container": "esci-os",
+  "created": "2026-10-24T23:03:40.113176553Z",
+  "mem_limit_bytes": 9663676416,
+  "heap_env": [
+    "OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g"
+  ],
+  "reused_existing_container": true,
+  "checked_at": "2026-10-25T14:27:28"
+}

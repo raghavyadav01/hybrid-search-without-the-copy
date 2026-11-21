@@ -1,0 +1,363 @@
+{
+  "table": "esci.products_us_pi",
+  "source_table_kept": "esci.products_us",
+  "metadata_location": "s3://esci-warehouse/esci/products_us_pi/metadata/00002-aaeeeec5-7727-442f-9d62-6062c3e18672.metadata.json",
+  "location": "s3://esci-warehouse/esci/products_us_pi",
+  "format_version": 2,
+  "partition_spec": "[\n  1000: locale: identity(7)\n]",
+  "table_properties": {
+    "format-version": "2",
+    "write.parquet.compression-codec": "zstd",
+    "write.target-file-size-bytes": "4294967296",
+    "write.parquet.row-group-limit": "10000000",
+    "write.parquet.page-size-bytes": "65536",
+    "write.parquet.page-row-limit": "64"
+  },
+  "writer": {
+    "library": "pyiceberg 0.12.0 -> pyarrow ParquetWriter",
+    "compression": "zstd",
+    "data_page_size": 65536,
+    "write_batch_size": 64,
+    "write_page_index": true,
+    "use_dictionary": [
+      "brand",
+      "color",
+      "locale"
+    ],
+    "row_groups_per_file": 1
+  },
+  "input_load_secs": 32.2,
+  "write_secs": 129.6,
+  "rows_per_file_target": 36862,
+  "schema": "table {\n  1: product_id: required string\n  2: title: optional string\n  3: description: optional string\n  4: bullet_point: optional string\n  5: brand: optional string\n  6: color: optional string\n  7: locale: required string\n  8: text: required string\n  9: embedding: required list<float>\n}",
+  "rows": 1215854,
+  "data_files": 33,
+  "file_mb_min": 123.7,
+  "file_mb_median": 126.4,
+  "file_mb_max": 130.5,
+  "total_gb": 4.08,
+  "page_index_on_every_column_chunk": true,
+  "columns": {
+    "product_id": {
+      "data_pages": 264,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 6707643,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 66304,
+      "data_page_compressed_bytes_max": 66304
+    },
+    "title": {
+      "data_pages": 1952,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 52825923,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 68981,
+      "data_page_compressed_bytes_max": 75557
+    },
+    "description": {
+      "data_pages": 6683,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 210916527,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 80302,
+      "data_page_compressed_bytes_max": 144420
+    },
+    "bullet_point": {
+      "data_pages": 8164,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 274987943,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 85108,
+      "data_page_compressed_bytes_max": 154589
+    },
+    "brand": {
+      "data_pages": 66,
+      "dict_pages": 33,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 6424977,
+      "encodings": [
+        "PLAIN",
+        "RLE",
+        "RLE_DICTIONARY"
+      ],
+      "data_page_compressed_bytes_p50": 29848,
+      "data_page_compressed_bytes_max": 34481
+    },
+    "color": {
+      "data_pages": 66,
+      "dict_pages": 33,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 3929705,
+      "encodings": [
+        "PLAIN",
+        "RLE",
+        "RLE_DICTIONARY"
+      ],
+      "data_page_compressed_bytes_p50": 23029,
+      "data_page_compressed_bytes_max": 26419
+    },
+    "locale": {
+      "data_pages": 66,
+      "dict_pages": 33,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 3135,
+      "encodings": [
+        "PLAIN",
+        "RLE",
+        "RLE_DICTIONARY"
+      ],
+      "data_page_compressed_bytes_p50": 5,
+      "data_page_compressed_bytes_max": 5
+    },
+    "text": {
+      "data_pages": 9102,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 316333121,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 92255,
+      "data_page_compressed_bytes_max": 134623
+    },
+    "embedding.list.element": {
+      "data_pages": 55281,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 3460376171,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 67706,
+      "data_page_compressed_bytes_max": 67706
+    }
+  },
+  "files": [
+    {
+      "file": "00000-0-245e74b1-f5f7-43ad-888d-21c58a3eefd3.parquet",
+      "rows": 36270,
+      "row_groups": 1,
+      "bytes": 132504173
+    },
+    {
+      "file": "00000-0-9ea41b40-774c-4ff8-b63b-77b0eed54df0.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132563237
+    },
+    {
+      "file": "00000-0-c0bac072-33ba-49a6-ae87-f5af68b00887.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 133441249
+    },
+    {
+      "file": "00000-0-199bf574-85e5-47d9-aad5-935614ca570a.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132027097
+    },
+    {
+      "file": "00000-0-2dd30481-99cb-46df-9302-f8e29d0c265d.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132881263
+    },
+    {
+      "file": "00000-0-fb7952ba-05d1-4609-a8c6-9d3e17922a59.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 133632697
+    },
+    {
+      "file": "00000-0-375d97a5-fe66-4e9f-b505-91367f979e67.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 134027849
+    },
+    {
+      "file": "00000-0-8ec34259-35d4-4d24-a01d-5dabb10e2ae7.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 134205402
+    },
+    {
+      "file": "00000-0-90d47f28-3314-4597-9eed-c6de0ce992e9.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132415322
+    },
+    {
+      "file": "00000-0-0b6a24b8-9f67-48c9-a368-1001e4d364be.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132357542
+    },
+    {
+      "file": "00000-0-ff3f1b13-705d-4f33-88ec-b75b8cdeb3db.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132882746
+    },
+    {
+      "file": "00000-0-0fa79d2f-bb73-4567-95ab-0746dafd54af.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132289768
+    },
+    {
+      "file": "00000-0-c814487e-b1c9-4908-9cbd-973083e6c3fd.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 134579674
+    },
+    {
+      "file": "00000-0-a80c3fe1-a216-47ba-acd3-d15d507321f5.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 134794299
+    },
+    {
+      "file": "00000-0-a7a0d623-491e-4c91-a2cd-9bd9eb65cbd2.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 136823294
+    },
+    {
+      "file": "00000-0-806f309c-0adb-4221-99d5-b951dea5d03f.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 134112593
+    },
+    {
+      "file": "00000-0-6c8f4b36-d2c1-4e69-aacd-eeb84c3fdfc5.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 133187795
+    },
+    {
+      "file": "00000-0-a9a8950b-5ee1-4571-80c9-ac00a4101a52.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 131349006
+    },
+    {
+      "file": "00000-0-4109259d-4847-4acb-a065-b705500998e5.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 130494452
+    },
+    {
+      "file": "00000-0-b763ba05-5b0b-42a4-a984-2b6f347f2f5a.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132753090
+    },
+    {
+      "file": "00000-0-66b5ce01-be5a-4d5f-b694-6210be3c85b3.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132108329
+    },
+    {
+      "file": "00000-0-0596d54e-b338-4b47-87c6-1dd320ee7da7.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132912569
+    },
+    {
+      "file": "00000-0-d809cf4d-e9f4-4c7d-b37b-2087fd784383.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 130178975
+    },
+    {
+      "file": "00000-0-49662187-c966-4f51-8162-c37f36d7b011.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 130644973
+    },
+    {
+      "file": "00000-0-0f48482a-a05f-444a-933a-6e82c46a0400.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132730648
+    },
+    {
+      "file": "00000-0-8b5ba7a8-a6be-44ac-9462-ff019ba15bed.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 129760619
+    },
+    {
+      "file": "00000-0-11e62b56-c485-4e40-acdf-10ed4a5ff0f1.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132355444
+    },
+    {
+      "file": "00000-0-bf7749f5-fef9-4637-8f93-88e6e7cd1460.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132749996
+    },
+    {
+      "file": "00000-0-98af5fd5-c341-4483-8165-9f4418d5f425.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 131682181
+    },
+    {
+      "file": "00000-0-790e6436-c7ac-4095-8a11-f8c0c3b6d71c.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 131711597
+    },
+    {
+      "file": "00000-0-197dfeb8-6e54-47fc-a9f4-e01071eac0e2.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132190803
+    },
+    {
+      "file": "00000-0-4a9253e5-1893-4ffa-a5e5-87afafd3f088.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 131646796
+    },
+    {
+      "file": "00000-0-c60b0466-4144-448e-bc42-e272eeef719d.parquet",
+      "rows": 36862,
+      "row_groups": 1,
+      "bytes": 132696901
+    }
+  ],
+  "current_snapshot_id": 7159213620831837966
+}

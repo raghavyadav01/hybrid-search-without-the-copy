@@ -1,0 +1,228 @@
+{
+  "engine": "es",
+  "version": "9.5.5",
+  "index": "esci_products",
+  "context": "engine ran alone (no Pinot cluster, no other search engine) on the laptop, after a Docker Desktop restart",
+  "ingestion": {
+    "bulk_wall_secs": 361.3,
+    "bulk_workers": 4,
+    "bulk_docs_per_request": 500,
+    "docs": 1215854,
+    "input_parquet_load_secs": 0.0,
+    "client_doc_prep_secs_sum": 446.7,
+    "client_bulk_request_secs_sum": 872.9,
+    "note": "doc prep (JSON/ndjson serialisation) runs in the 4 worker processes interleaved with posting; *_sum fields are summed over workers, so the server-side share of bulk wall time ~= bulk_wall_secs * request_sum / (prep_sum + request_sum)",
+    "est_server_share_of_bulk_wall_secs": 239.0
+  },
+  "indexing": {
+    "bulk_wall_secs": 361.3,
+    "final_refresh_secs": 0.2,
+    "merge_settle_secs": 85.2,
+    "force_merge_secs": 260.3,
+    "force_merge": "max_num_segments=1 after merges settled",
+    "segments_before_force_merge": 16,
+    "total_incl_force_merge_secs": 707.0,
+    "total_until_searchable_and_merges_settled_secs": 446.6
+  },
+  "index_size": {
+    "store_bytes": 4102875796,
+    "data_dir_bytes(du)": 4103048836,
+    "segments_after_settle": 1,
+    "split": {
+      "vector_bytes(vec/vex/vem*)": 3783616432,
+      "other_bytes(text postings, norms, ids, keywords, ...)": 184698481
+    },
+    "es_disk_usage_text_bytes": 243908139,
+    "es_disk_usage_embedding_bytes": 3780706651
+  },
+  "query_latency_ms_from_quality_runs": {},
+  "server_stats": {
+    "note": "cumulative shard stats since node start (index was built in this node session); times are summed across threads, not wall time",
+    "indexing_index_total": 1215854,
+    "indexing_index_time_secs": 792.4,
+    "indexing_throttle_time_secs": 0.0,
+    "merges_total": 11,
+    "merges_total_time_secs": 760.1,
+    "merges_total_size_bytes": 8789718182,
+    "merges_throttled_time_secs": 222.9,
+    "refresh_total": 23,
+    "refresh_total_time_secs": 1.3,
+    "flush_total": 13,
+    "flush_total_time_secs": 15.5,
+    "store_bytes": 4102875796,
+    "segments": 1,
+    "docs": 1215854,
+    "segment_file_sizes_by_ext": {
+      "tmd": 336,
+      "psm": 112,
+      "dvd": 21099842,
+      "pos": 65,
+      "vec": 3735103632,
+      "si": 904,
+      "tim": 10051697,
+      "tip": 257270,
+      "dvm": 998,
+      "nvd": 1215913,
+      "vem": 85322,
+      "dvs": 78,
+      "bfi": 1519892,
+      "nvm": 103,
+      "fnm": 1299,
+      "vex": 48427336,
+      "bfm": 103,
+      "kdd": 4476280,
+      "fdm": 201,
+      "kdi": 11288,
+      "kdm": 149,
+      "fdt": 18411227,
+      "vfi": 132,
+      "doc": 127644447,
+      "fdx": 6145,
+      "vemf": 142
+    },
+    "size_split_from_file_ext": {
+      "vector_bytes(vec/vex/vem*)": 3783616432,
+      "other_bytes(text postings, norms, ids, keywords, ...)": 184698481
+    },
+    "hnsw_build_time": "not exposed separately by the stats APIs: HNSW insertion is inside indexing_index_time and graph merging inside merges_total_time",
+    "es_disk_usage": {
+      "store_size_in_bytes": 4102875796,
+      "all_fields_total_in_bytes": 4099588768,
+      "text_field_bytes": 243908139,
+      "embedding_field_bytes": 3780706651,
+      "fields": {
+        "_id": {
+          "total_in_bytes": 28044120,
+          "inverted_index": {
+            "total": "11.1mb",
+            "total_in_bytes": 11702669
+          },
+          "stored_fields_in_bytes": 16341451,
+          "doc_values_in_bytes": 0,
+          "points_in_bytes": 0,
+          "norms_in_bytes": 0,
+          "term_vectors_in_bytes": 0,
+          "knn_vectors_in_bytes": 0
+        },
+        "_primary_term": {
+          "total_in_bytes": 0,
+          "inverted_index": {
+            "total": "0b",
+            "total_in_bytes": 0
+          },
+          "stored_fields_in_bytes": 0,
+          "doc_values_in_bytes": 0,
+          "points_in_bytes": 0,
+          "norms_in_bytes": 0,
+          "term_vectors_in_bytes": 0,
+          "knn_vectors_in_bytes": 0
+        },
+        "_recovery_source": {
+          "total_in_bytes": 2097636,
+          "inverted_index": {
+            "total": "0b",
+            "total_in_bytes": 0
+          },
+          "stored_fields_in_bytes": 2075786,
+          "doc_values_in_bytes": 21850,
+          "points_in_bytes": 0,
+          "norms_in_bytes": 0,
+          "term_vectors_in_bytes": 0,
+          "knn_vectors_in_bytes": 0
+        },
+        "_seq_no": {
+          "total_in_bytes": 7338609,
+          "inverted_index": {
+            "total": "0b",
+            "total_in_bytes": 0
+          },
+          "stored_fields_in_bytes": 0,
+          "doc_values_in_bytes": 2851174,
+          "points_in_bytes": 4487435,
+          "norms_in_bytes": 0,
+          "term_vectors_in_bytes": 0,
+          "knn_vectors_in_bytes": 0
+        },
+        "_version": {
+          "total_in_bytes": 0,
+          "inverted_index": {
+            "total": "0b",
+            "total_in_bytes": 0
+          },
+          "stored_fields_in_bytes": 0,
+          "doc_values_in_bytes": 0,
+          "points_in_bytes": 0,
+          "norms_in_bytes": 0,
+          "term_vectors_in_bytes": 0,
+          "knn_vectors_in_bytes": 0
+        },
+        "brand": {
+          "total_in_bytes": 9400863,
+          "inverted_index": {
+            "total": "4.6mb",
+            "total_in_bytes": 4841663
+          },
+          "stored_fields_in_bytes": 0,
+          "doc_values_in_bytes": 4559200,
+          "points_in_bytes": 0,
+          "norms_in_bytes": 0,
+          "term_vectors_in_bytes": 0,
+          "knn_vectors_in_bytes": 0
+        },
+        "color": {
+          "total_in_bytes": 7986467,
+          "inverted_index": {
+            "total": "3.8mb",
+            "total_in_bytes": 4013747
+          },
+          "stored_fields_in_bytes": 0,
+          "doc_values_in_bytes": 3972720,
+          "points_in_bytes": 0,
+          "norms_in_bytes": 0,
+          "term_vectors_in_bytes": 0,
+          "knn_vectors_in_bytes": 0
+        },
+        "embedding": {
+          "total_in_bytes": 3780706651,
+          "inverted_index": {
+            "total": "0b",
+            "total_in_bytes": 0
+          },
+          "stored_fields_in_bytes": 0,
+          "doc_values_in_bytes": 0,
+          "points_in_bytes": 0,
+          "norms_in_bytes": 0,
+          "term_vectors_in_bytes": 0,
+          "knn_vectors_in_bytes": 3780706651
+        },
+        "product_id": {
+          "total_in_bytes": 20106283,
+          "inverted_index": {
+            "total": "9.9mb",
+            "total_in_bytes": 10424160
+          },
+          "stored_fields_in_bytes": 0,
+          "doc_values_in_bytes": 9682123,
+          "points_in_bytes": 0,
+          "norms_in_bytes": 0,
+          "term_vectors_in_bytes": 0,
+          "knn_vectors_in_bytes": 0
+        },
+        "text": {
+          "total_in_bytes": 243908139,
+          "inverted_index": {
+            "total": "231.4mb",
+            "total_in_bytes": 242692285
+          },
+          "stored_fields_in_bytes": 0,
+          "doc_values_in_bytes": 0,
+          "points_in_bytes": 0,
+          "norms_in_bytes": 1215854,
+          "term_vectors_in_bytes": 0,
+          "knn_vectors_in_bytes": 0
+        }
+      }
+    }
+  },
+  "written_at": "2026-10-27T04:06:23"
+}

@@ -1,0 +1,52 @@
+{
+  "name": "pinot_local_hybrid_sql",
+  "qrels": "esci-us-test-large",
+  "config": {
+    "engine": "StarTree Pinot 2.0.0-SNAPSHOT + OSS 1.7.0-SNAPSHOT (TEXT_SCORE, TEXT_SCORE_STATS)",
+    "table": "esci_local",
+    "mode": "hybrid_sql",
+    "k": 100,
+    "concurrency": 8,
+    "queryOptions": "useMultistageEngine=true;timeoutMs=120000",
+    "bm25": "Lucene BM25Similarity k1=1.2 b=0.75, GLOBAL statistics (two-step: TEXT_SCORE_STATS then 4-arg TEXT_SCORE)",
+    "text_analyzer": "Pinot default: Lucene StandardAnalyzer + 33 default English stop words, no stemming",
+    "lucene_query": "lower-case, backslash-escape classic-syntax specials, OR of whitespace terms",
+    "vector_index": "HNSW (Lucene, M=16, beamWidth=100 defaults), COSINE, dim 768",
+    "vectorEfSearch": "unset (Lucene beam = per-segment k)",
+    "per_segment_topk": 100,
+    "fusion": "RRF in multi-stage SQL (UNION ALL + GROUP BY)",
+    "rrf_k": 60
+  },
+  "metrics": {
+    "ndcg@10": 0.361,
+    "n_ndcg@10": 22458,
+    "recall@100": 0.6221,
+    "n_recall@100": 22457,
+    "recall_es@100": 0.5393,
+    "n_recall_es@100": 22458,
+    "queries_with_empty_result": 0
+  },
+  "timing": {
+    "wall_secs": 19122.8,
+    "queries": 22458,
+    "mean_secs_per_query": 0.85219
+  },
+  "written_at": "2026-10-24T23:29:56",
+  "latency": {
+    "warmup_excluded": 200,
+    "n": 22258,
+    "client_ms_p50": 6509.2,
+    "client_ms_p95": 13612.0,
+    "client_ms_p99": 18099.8,
+    "broker_ms_p50": 6481.0,
+    "broker_ms_p95": 13586.4,
+    "broker_ms_p99": 18069.6,
+    "client_ms_mean": 6809.1,
+    "note": "from the quality run (concurrency 8); see pinot_local_latency.json for the isolated pass"
+  },
+  "errors": {
+    "count": 0,
+    "partial_results": 0,
+    "sample": []
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "container": "esci-es",
+  "created": "2026-10-24T22:43:47.550115001Z",
+  "mem_limit_bytes": 9663676416,
+  "heap_env": [
+    "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+  ],
+  "reused_existing_container": true,
+  "checked_at": "2026-10-25T14:26:53"
+}

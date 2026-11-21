@@ -1,0 +1,86 @@
+{
+  "engine": "es",
+  "index": "esci_products",
+  "version": {
+    "number": "9.5.5",
+    "build_flavor": "default",
+    "build_type": "docker",
+    "build_hash": "48acba663b09e70b115dd879329141506c377890",
+    "build_date": "2026-09-30T22:12:03.984586187Z",
+    "build_snapshot": false,
+    "lucene_version": "10.5.1",
+    "minimum_wire_compatibility_version": "8.19.0",
+    "minimum_index_compatibility_version": "8.0.0"
+  },
+  "docs_sent": 1215854,
+  "docs_indexed": 1215854,
+  "bulk_errors": 0,
+  "error_sample": [],
+  "bulk_workers": 4,
+  "bulk_docs": 500,
+  "bulk_secs": 456.1,
+  "input_load_secs": 1.4,
+  "input_parquet_read_secs_sum": 82.8,
+  "input": "esci.products_us_pi (Iceberg data files on MinIO)",
+  "doc_prep_secs_sum": 424.6,
+  "bulk_post_secs_sum": 1315.6,
+  "refresh_secs": 0.1,
+  "merge_settle_secs": 120.4,
+  "index_secs_total": 576.7,
+  "segments_before_force_merge": 19,
+  "force_merge_secs": 376.2,
+  "force_merge_http_status": 200,
+  "index_secs_total_incl_force_merge": 952.9,
+  "store_bytes": 4097693389,
+  "segments": 1,
+  "data_dir_bytes": 4097880761,
+  "mapping": {
+    "settings": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "refresh_interval": "-1",
+      "analysis": {
+        "analyzer": {
+          "std_english_stop": {
+            "type": "standard",
+            "stopwords": "_english_"
+          }
+        }
+      }
+    },
+    "mappings": {
+      "_source": {
+        "enabled": false
+      },
+      "properties": {
+        "product_id": {
+          "type": "keyword"
+        },
+        "brand": {
+          "type": "keyword",
+          "ignore_above": 512
+        },
+        "color": {
+          "type": "keyword",
+          "ignore_above": 512
+        },
+        "text": {
+          "type": "text",
+          "analyzer": "std_english_stop"
+        },
+        "embedding": {
+          "type": "dense_vector",
+          "dims": 768,
+          "index": true,
+          "similarity": "dot_product",
+          "index_options": {
+            "type": "hnsw",
+            "m": 16,
+            "ef_construction": 100
+          }
+        }
+      }
+    }
+  },
+  "written_at": "2026-10-24T16:00:38"
+}

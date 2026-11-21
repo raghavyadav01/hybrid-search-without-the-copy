@@ -1,0 +1,196 @@
+1215854 rows, ~3641 B/row -> 36862 rows/file
+  appended rows 0..36862 5s
+  appended rows 36862..73724 12s
+  appended rows 73724..110586 19s
+  appended rows 110586..147448 25s
+  appended rows 147448..184310 28s
+  appended rows 184310..221172 31s
+  appended rows 221172..258034 33s
+  appended rows 258034..294896 37s
+  appended rows 294896..331758 39s
+  appended rows 331758..368620 42s
+  appended rows 368620..405482 46s
+  appended rows 405482..442344 50s
+  appended rows 442344..479206 54s
+  appended rows 479206..516068 57s
+  appended rows 516068..552930 61s
+  appended rows 552930..589792 64s
+  appended rows 589792..626654 67s
+  appended rows 626654..663516 70s
+  appended rows 663516..700378 75s
+  appended rows 700378..737240 81s
+  appended rows 737240..774102 84s
+  appended rows 774102..810964 87s
+  appended rows 810964..847826 90s
+  appended rows 847826..884688 94s
+  appended rows 884688..921550 98s
+  appended rows 921550..958412 102s
+  appended rows 958412..995274 106s
+  appended rows 995274..1032136 111s
+  appended rows 1032136..1068998 116s
+  appended rows 1068998..1105860 120s
+  appended rows 1105860..1142722 123s
+  appended rows 1142722..1179584 127s
+  appended rows 1179584..1215854 129s
+{
+  "table": "esci.products_us_pi",
+  "source_table_kept": "esci.products_us",
+  "metadata_location": "s3://esci-warehouse/esci/products_us_pi/metadata/00002-aaeeeec5-7727-442f-9d62-6062c3e18672.metadata.json",
+  "location": "s3://esci-warehouse/esci/products_us_pi",
+  "format_version": 2,
+  "partition_spec": "[\n  1000: locale: identity(7)\n]",
+  "table_properties": {
+    "format-version": "2",
+    "write.parquet.compression-codec": "zstd",
+    "write.target-file-size-bytes": "4294967296",
+    "write.parquet.row-group-limit": "10000000",
+    "write.parquet.page-size-bytes": "65536",
+    "write.parquet.page-row-limit": "64"
+  },
+  "writer": {
+    "library": "pyiceberg 0.12.0 -> pyarrow ParquetWriter",
+    "compression": "zstd",
+    "data_page_size": 65536,
+    "write_batch_size": 64,
+    "write_page_index": true,
+    "use_dictionary": [
+      "brand",
+      "color",
+      "locale"
+    ],
+    "row_groups_per_file": 1
+  },
+  "input_load_secs": 32.2,
+  "write_secs": 129.6,
+  "rows_per_file_target": 36862,
+  "rows": 1215854,
+  "data_files": 33,
+  "file_mb_min": 123.7,
+  "file_mb_median": 126.4,
+  "file_mb_max": 130.5,
+  "total_gb": 4.08,
+  "page_index_on_every_column_chunk": true,
+  "columns": {
+    "product_id": {
+      "data_pages": 264,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 6707643,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 66304,
+      "data_page_compressed_bytes_max": 66304
+    },
+    "title": {
+      "data_pages": 1952,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 52825923,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 68981,
+      "data_page_compressed_bytes_max": 75557
+    },
+    "description": {
+      "data_pages": 6683,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 210916527,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 80302,
+      "data_page_compressed_bytes_max": 144420
+    },
+    "bullet_point": {
+      "data_pages": 8164,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 274987943,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 85108,
+      "data_page_compressed_bytes_max": 154589
+    },
+    "brand": {
+      "data_pages": 66,
+      "dict_pages": 33,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 6424977,
+      "encodings": [
+        "PLAIN",
+        "RLE",
+        "RLE_DICTIONARY"
+      ],
+      "data_page_compressed_bytes_p50": 29848,
+      "data_page_compressed_bytes_max": 34481
+    },
+    "color": {
+      "data_pages": 66,
+      "dict_pages": 33,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 3929705,
+      "encodings": [
+        "PLAIN",
+        "RLE",
+        "RLE_DICTIONARY"
+      ],
+      "data_page_compressed_bytes_p50": 23029,
+      "data_page_compressed_bytes_max": 26419
+    },
+    "locale": {
+      "data_pages": 66,
+      "dict_pages": 33,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 3135,
+      "encodings": [
+        "PLAIN",
+        "RLE",
+        "RLE_DICTIONARY"
+      ],
+      "data_page_compressed_bytes_p50": 5,
+      "data_page_compressed_bytes_max": 5
+    },
+    "text": {
+      "data_pages": 9102,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 316333121,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 92255,
+      "data_page_compressed_bytes_max": 134623
+    },
+    "embedding.list.element": {
+      "data_pages": 55281,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 3460376171,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 67706,
+      "data_page_compressed_bytes_max": 67706
+    }
+  },
+  "current_snapshot_id": 7159213620831837966
+}

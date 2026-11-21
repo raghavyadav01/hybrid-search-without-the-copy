@@ -1,0 +1,24 @@
+{
+  "name": "ref_vector_exact_brand",
+  "qrels": "esci-us-test-large",
+  "config": {
+    "engine": "numpy exact inner product (cosine on normalised vectors)",
+    "filter": "brand IS NOT NULL",
+    "k": 100
+  },
+  "metrics": {
+    "ndcg@10": 0.337,
+    "n_ndcg@10": 22458,
+    "recall@100": 0.5774,
+    "n_recall@100": 22457,
+    "recall_es@100": 0.5053,
+    "n_recall_es@100": 22458,
+    "queries_with_empty_result": 0
+  },
+  "timing": {
+    "wall_secs": 0.8,
+    "queries": 22458,
+    "mean_secs_per_query": 0.0
+  },
+  "written_at": "2026-10-23T21:21:07"
+}

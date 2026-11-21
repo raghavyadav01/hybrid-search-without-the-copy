@@ -1,0 +1,27 @@
+{
+  "name": "ref_hybrid_rrf_bm25",
+  "qrels": "esci-us-test-large",
+  "config": {
+    "fusion": "RRF",
+    "rrf_k": 60,
+    "inputs": [
+      "ref_bm25",
+      "ref_vector_exact"
+    ],
+    "input_depth": 100,
+    "output_depth": 100
+  },
+  "metrics": {
+    "ndcg@10": 0.3606,
+    "n_ndcg@10": 22458,
+    "recall@100": 0.6207,
+    "n_recall@100": 22457,
+    "recall_es@100": 0.5382,
+    "n_recall_es@100": 22458,
+    "queries_with_empty_result": 0
+  },
+  "timing": {
+    "fuse_secs": 9.2
+  },
+  "written_at": "2026-10-23T18:25:40"
+}

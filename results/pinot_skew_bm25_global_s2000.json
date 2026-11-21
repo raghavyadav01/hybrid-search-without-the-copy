@@ -1,0 +1,53 @@
+{
+  "name": "pinot_skew_bm25_global_s2000",
+  "qrels": "esci-us-test-large",
+  "config": {
+    "engine": "StarTree Pinot 2.0.0-SNAPSHOT + OSS 1.7.0-SNAPSHOT (TEXT_SCORE, TEXT_SCORE_STATS)",
+    "table": "esci_skew",
+    "mode": "bm25_global",
+    "k": 100,
+    "concurrency": 8,
+    "queryOptions": "timeoutMs=120000",
+    "bm25": "Lucene BM25Similarity k1=1.2 b=0.75, GLOBAL statistics (two-step: TEXT_SCORE_STATS then 4-arg TEXT_SCORE)",
+    "text_analyzer": "Pinot default: Lucene StandardAnalyzer + 33 default English stop words, no stemming",
+    "lucene_query": "lower-case, backslash-escape classic-syntax specials, OR of whitespace terms",
+    "query_sample": {
+      "split": "large",
+      "n": 2000,
+      "seed": 2026,
+      "how": "random.Random(seed).sample(sorted(query_ids), n)"
+    }
+  },
+  "metrics": {
+    "ndcg@10": 0.3142,
+    "n_ndcg@10": 2000,
+    "recall@100": 0.5316,
+    "n_recall@100": 2000,
+    "recall_es@100": 0.4579,
+    "n_recall_es@100": 2000,
+    "queries_with_empty_result": 10
+  },
+  "timing": {
+    "wall_secs": 11.1,
+    "queries": 2000,
+    "mean_secs_per_query": 0.00555
+  },
+  "written_at": "2026-10-26T19:34:36",
+  "latency": {
+    "warmup_excluded": 200,
+    "n": 1800,
+    "client_ms_p50": 41.8,
+    "client_ms_p95": 66.9,
+    "client_ms_p99": 84.8,
+    "broker_ms_p50": 24.0,
+    "broker_ms_p95": 39.0,
+    "broker_ms_p99": 47.0,
+    "client_ms_mean": 43.1,
+    "note": "from the quality run (concurrency 8); see pinot_skew_latency.json for the isolated pass"
+  },
+  "errors": {
+    "count": 0,
+    "partial_results": 0,
+    "sample": []
+  }
+}

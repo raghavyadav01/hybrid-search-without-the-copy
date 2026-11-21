@@ -1,0 +1,49 @@
+{
+  "name": "es_knn_c1000",
+  "qrels": "esci-us-test-large",
+  "config": {
+    "engine": "Elasticsearch 9.5.5",
+    "index": "esci_products",
+    "mode": "knn",
+    "k": 100,
+    "text_analyzer": "standard tokenizer + lowercase + _english_ stop (33 words), no stemming",
+    "bm25": "Lucene BM25Similarity k1=1.2 b=0.75 (1 shard)",
+    "concurrency": 8,
+    "vector_index": "HNSW m=16 ef_construction=100, float32 (no quantisation), dot_product on L2-normalised vectors (= cosine), dim 768",
+    "knn": {
+      "k": 100,
+      "num_candidates": 1000
+    }
+  },
+  "metrics": {
+    "ndcg@10": 0.3385,
+    "n_ndcg@10": 22458,
+    "recall@100": 0.5883,
+    "n_recall@100": 22457,
+    "recall_es@100": 0.5144,
+    "n_recall_es@100": 22458,
+    "queries_with_empty_result": 0
+  },
+  "timing": {
+    "wall_secs": 54.3,
+    "queries": 22458,
+    "mean_secs_per_query": 0.00242
+  },
+  "written_at": "2026-10-24T16:47:37",
+  "latency": {
+    "warmup_excluded": 500,
+    "n": 21958,
+    "client_ms_p50": 14.6,
+    "client_ms_p95": 30.1,
+    "client_ms_p99": 51.0,
+    "server_took_ms_p50": 5.0,
+    "server_took_ms_p95": 16.0,
+    "server_took_ms_p99": 31.0,
+    "client_ms_mean": 16.7,
+    "note": "from the quality run (concurrency 8, engine alone on the laptop); see es_latency.json for the isolated pass"
+  },
+  "errors": {
+    "count": 0,
+    "sample": []
+  }
+}

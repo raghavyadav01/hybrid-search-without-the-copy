@@ -1,0 +1,3 @@
+esci-os
+{"distribution": "opensearch", "number": "3.9.0", "build_type": "tar", "build_hash": "4ee42a94e87f66fbf1e62a9871b1b87f91e02472", "build_date": "2026-09-23T01:00:48.264305421Z", "build_snapshot": false, "lucene_version": "10.5.1", "minimum_wire_compatibility_version": "2.19.0", "minimum_index_compatibility_version": "2.0.0"}
+{"container": "esci-os", "created": "2026-10-24T23:03:40.113176553Z", "mem_limit_bytes": 9663676416, "heap_env": ["OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g"], "reused_existing_container": true, "checked_at": "2026-10-24T16:50:07"}

@@ -1,0 +1,363 @@
+{
+  "table": "esci.products_us_skew",
+  "source_table_kept": "esci.products_us",
+  "metadata_location": "s3://esci-warehouse/esci/products_us_skew/metadata/00002-28e80d3f-749b-479b-843b-04992ad475d8.metadata.json",
+  "location": "s3://esci-warehouse/esci/products_us_skew",
+  "format_version": 2,
+  "partition_spec": "[\n  1000: locale: identity(7)\n]",
+  "table_properties": {
+    "format-version": "2",
+    "write.parquet.compression-codec": "zstd",
+    "write.target-file-size-bytes": "4294967296",
+    "write.parquet.row-group-limit": "10000000",
+    "write.parquet.page-size-bytes": "65536",
+    "write.parquet.page-row-limit": "64"
+  },
+  "writer": {
+    "library": "pyiceberg 0.12.0 -> pyarrow ParquetWriter",
+    "compression": "zstd",
+    "data_page_size": 65536,
+    "write_batch_size": 64,
+    "write_page_index": true,
+    "use_dictionary": [
+      "brand",
+      "color",
+      "locale"
+    ],
+    "row_groups_per_file": 1
+  },
+  "input_load_secs": 10.0,
+  "write_secs": 35.0,
+  "rows_per_file_target": 37571,
+  "schema": "table {\n  1: product_id: required string\n  2: title: optional string\n  3: description: optional string\n  4: bullet_point: optional string\n  5: brand: optional string\n  6: color: optional string\n  7: locale: required string\n  8: text: required string\n  9: embedding: required list<float>\n}",
+  "rows": 1215854,
+  "data_files": 33,
+  "file_mb_min": 43.5,
+  "file_mb_median": 124.3,
+  "file_mb_max": 129.1,
+  "total_gb": 3.92,
+  "page_index_on_every_column_chunk": true,
+  "columns": {
+    "product_id": {
+      "data_pages": 259,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 6430571,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 66304,
+      "data_page_compressed_bytes_max": 66304
+    },
+    "title": {
+      "data_pages": 1947,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 48876899,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 68923,
+      "data_page_compressed_bytes_max": 76884
+    },
+    "description": {
+      "data_pages": 6384,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 170467420,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 83532,
+      "data_page_compressed_bytes_max": 169103
+    },
+    "bullet_point": {
+      "data_pages": 7900,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 217365275,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 87594,
+      "data_page_compressed_bytes_max": 193234
+    },
+    "brand": {
+      "data_pages": 65,
+      "dict_pages": 33,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 2199292,
+      "encodings": [
+        "PLAIN",
+        "RLE",
+        "RLE_DICTIONARY"
+      ],
+      "data_page_compressed_bytes_p50": 13801,
+      "data_page_compressed_bytes_max": 18857
+    },
+    "color": {
+      "data_pages": 65,
+      "dict_pages": 33,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 3468475,
+      "encodings": [
+        "PLAIN",
+        "RLE",
+        "RLE_DICTIONARY"
+      ],
+      "data_page_compressed_bytes_p50": 24208,
+      "data_page_compressed_bytes_max": 27520
+    },
+    "locale": {
+      "data_pages": 65,
+      "dict_pages": 33,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 3102,
+      "encodings": [
+        "PLAIN",
+        "RLE",
+        "RLE_DICTIONARY"
+      ],
+      "data_page_compressed_bytes_p50": 5,
+      "data_page_compressed_bytes_max": 5
+    },
+    "text": {
+      "data_pages": 8853,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 260200558,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 95283,
+      "data_page_compressed_bytes_max": 142077
+    },
+    "embedding.list.element": {
+      "data_pages": 55274,
+      "dict_pages": 0,
+      "has_offset_index": true,
+      "has_column_index": true,
+      "compressed_bytes": 3458211175,
+      "encodings": [
+        "PLAIN",
+        "RLE"
+      ],
+      "data_page_compressed_bytes_p50": 67706,
+      "data_page_compressed_bytes_max": 67706
+    }
+  },
+  "files": [
+    {
+      "file": "00000-0-961515db-c48b-40fd-8c74-8b6f013c8aa5.parquet",
+      "rows": 13582,
+      "row_groups": 1,
+      "bytes": 45634003
+    },
+    {
+      "file": "00000-0-737beaa6-e812-4297-bf76-26999c919fae.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 121319619
+    },
+    {
+      "file": "00000-0-4b75ad35-36fc-456d-8b39-0c3dc3e793a1.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 126033117
+    },
+    {
+      "file": "00000-0-67a03f03-f43a-4155-b0dc-3fbd1b82840e.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 131948479
+    },
+    {
+      "file": "00000-0-d17ef397-9e2c-4f10-bca8-491f91869fca.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 135348709
+    },
+    {
+      "file": "00000-0-bdf428d0-f628-426f-b2ef-a5a0c19b48e7.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 131198970
+    },
+    {
+      "file": "00000-0-583c011f-6fd5-47ea-8645-76f1239e9f24.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 130333567
+    },
+    {
+      "file": "00000-0-6d7e7e0f-9cbc-4d8d-8115-b65baa7978af.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 129684098
+    },
+    {
+      "file": "00000-0-cd952714-3f75-433a-abe6-081c1de62d38.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 130679316
+    },
+    {
+      "file": "00000-0-d86058cd-af71-49d8-b709-c304cfea8c5c.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 127491558
+    },
+    {
+      "file": "00000-0-f5939638-623f-4cdc-b105-36080cc95cbf.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 132221672
+    },
+    {
+      "file": "00000-0-6e68b2f1-9173-41e2-8a40-09b5cd1ccf33.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 127708410
+    },
+    {
+      "file": "00000-0-e3c1e206-326d-4bff-99d9-4d8d730408ef.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 129821952
+    },
+    {
+      "file": "00000-0-3e0acc40-02d3-4785-bc92-4b19e41aedef.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 129921813
+    },
+    {
+      "file": "00000-0-11d17efb-c07f-4415-9558-61a13da6e3b2.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 128335729
+    },
+    {
+      "file": "00000-0-15725dff-1984-4835-8e4a-b8269fc4fc65.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 131647400
+    },
+    {
+      "file": "00000-0-5152a6d9-6d78-47b3-8559-73b88be7a901.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 129433812
+    },
+    {
+      "file": "00000-0-2be7a3e5-ee70-43e3-9626-4c97d8fe3e52.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 130877899
+    },
+    {
+      "file": "00000-0-a7552459-66a5-4807-bf5d-76fb6d17301b.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 132301676
+    },
+    {
+      "file": "00000-0-b1774013-21fa-46fc-aa9f-4afe34eac11a.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 132651849
+    },
+    {
+      "file": "00000-0-3ba427d8-ee32-4461-b483-c502be29ec96.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 132036108
+    },
+    {
+      "file": "00000-0-dae5a147-1dbb-4af2-b6dd-3dff3c188d37.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 130590046
+    },
+    {
+      "file": "00000-0-9e863fa4-a789-4ce0-8513-63708bc034bb.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 130931216
+    },
+    {
+      "file": "00000-0-85e264da-de07-4310-bd87-43906c42a2ac.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 129133238
+    },
+    {
+      "file": "00000-0-18a07d30-9d64-4b56-be19-1b955a296bfb.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 133194060
+    },
+    {
+      "file": "00000-0-13b525a1-8e55-4050-a588-e9e5b63e8b89.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 129835673
+    },
+    {
+      "file": "00000-0-7faf893f-0126-4f0d-8cbc-3f43a3f9f601.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 128793077
+    },
+    {
+      "file": "00000-0-3bca0626-a697-4e9c-a3d7-d9d90edf5bc8.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 125942849
+    },
+    {
+      "file": "00000-0-4d93e340-11b2-4485-81c1-66b627ff3c6e.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 129462818
+    },
+    {
+      "file": "00000-0-90574b1a-40e4-46c5-9067-715f0a487a13.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 130288988
+    },
+    {
+      "file": "00000-0-f7dfb604-a396-4ae4-9091-6e925702c5bb.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 132274253
+    },
+    {
+      "file": "00000-0-d8ec3431-376b-476f-aea4-811d1fbfe610.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 126796002
+    },
+    {
+      "file": "00000-0-2421c144-f5b7-4de0-b154-7629ae4129d9.parquet",
+      "rows": 37571,
+      "row_groups": 1,
+      "bytes": 134385730
+    }
+  ],
+  "current_snapshot_id": 4960779724636378494
+}

@@ -1,0 +1,32 @@
+executionFrameworkSpec:
+  name: standalone
+  segmentGenerationJobRunnerClassName: org.apache.pinot.plugin.ingestion.batch.standalone.SegmentGenerationJobRunner
+  segmentMetadataPushJobRunnerClassName: org.apache.pinot.plugin.ingestion.batch.standalone.SegmentMetadataPushJobRunner
+jobType: SegmentCreationAndMetadataPush
+inputDirURI: s3://esci-warehouse/esci/products_us/data/locale=us/
+includeFileNamePattern: glob:**/*.parquet
+outputDirURI: file://$EVAL_HOME/stp-cache/run/local/segments/
+overwriteOutput: true
+segmentCreationJobParallelism: 3
+pinotFSSpecs:
+  - scheme: file
+    className: org.apache.pinot.spi.filesystem.LocalPinotFS
+  - scheme: s3
+    className: org.apache.pinot.plugin.filesystem.S3PinotFS
+    configs:
+      region: us-east-1
+      endpoint: http://127.0.0.1:9020
+      accessKey: minioadmin
+      secretKey: minioadmin
+recordReaderSpec:
+  dataFormat: parquet
+  className: org.apache.pinot.plugin.inputformat.parquet.ParquetRecordReader
+tableSpec:
+  tableName: esci_local
+  schemaURI: http://localhost:19000/tables/esci_local/schema
+  tableConfigURI: http://localhost:19000/tables/esci_local
+pinotClusterSpecs:
+  - controllerURI: http://localhost:19000
+pushJobSpec:
+  pushAttempts: 2
+  pushParallelism: 4

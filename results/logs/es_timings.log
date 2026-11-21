@@ -1,0 +1,34 @@
+{
+  "ingestion": {
+    "bulk_wall_secs": 456.1,
+    "bulk_workers": 4,
+    "bulk_docs_per_request": 500,
+    "docs": 1215854,
+    "input_parquet_load_secs": 1.4,
+    "client_doc_prep_secs_sum": 424.6,
+    "client_bulk_request_secs_sum": 1315.6,
+    "note": "doc prep (JSON/ndjson serialisation) runs in the 4 worker processes interleaved with posting; *_sum fields are summed over workers, so the server-side share of bulk wall time ~= bulk_wall_secs * request_sum / (prep_sum + request_sum)",
+    "est_server_share_of_bulk_wall_secs": 344.8
+  },
+  "indexing": {
+    "bulk_wall_secs": 456.1,
+    "final_refresh_secs": 0.1,
+    "merge_settle_secs": 120.4,
+    "force_merge_secs": 376.2,
+    "force_merge": "max_num_segments=1 after merges settled",
+    "segments_before_force_merge": 19,
+    "total_incl_force_merge_secs": 952.9,
+    "total_until_searchable_and_merges_settled_secs": 576.7
+  },
+  "index_size": {
+    "store_bytes": 4097693389,
+    "data_dir_bytes(du)": 4097880761,
+    "segments_after_settle": 1,
+    "split": {
+      "vector_bytes(vec/vex/vem*)": 3782822877,
+      "other_bytes(text postings, norms, ids, keywords, ...)": 180365762
+    },
+    "es_disk_usage_text_bytes": 244477070,
+    "es_disk_usage_embedding_bytes": 3779945688
+  }
+}

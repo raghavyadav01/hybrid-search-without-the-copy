@@ -1,0 +1,70 @@
+{
+  "generated": "2026-10-23T21:48:10",
+  "lake_table": "esci.products_us_pi",
+  "context": "Pinot cluster (1 JVM: ZK, controller, broker, 3 servers, minion; -Xmx8g) alone on the laptop; MinIO + Iceberg REST in Docker",
+  "esci_et": {
+    "method": "sync scheduled at t0; per-segment text/HNSW build from server log; registration and queryable times from IdealState/ExternalView polling every 2 s",
+    "segments": 33,
+    "sync_scheduled_epoch": 1792816793.0,
+    "catalog_sync_registration_s": 2.7,
+    "metadata_segment_generation_s": 0.7,
+    "per_segment_text_index_build": {
+      "n": 33,
+      "mean_s": 5.6,
+      "p50_s": 5.8,
+      "max_s": 9.0,
+      "sum_s": 186.2
+    },
+    "per_segment_hnsw_build": {
+      "n": 33,
+      "mean_s": 105.6,
+      "p50_s": 104.8,
+      "max_s": 143.3,
+      "sum_s": 3483.8
+    },
+    "per_segment_load_total(build+upload-to-tier+open)": {
+      "n": 33,
+      "mean_s": 282.6,
+      "p50_s": 266.9,
+      "max_s": 456.2,
+      "sum_s": 9326.4
+    },
+    "index_build_wall_s(first load start -> last segment loaded)": 456.2,
+    "watch_segments": 33,
+    "watch_all_segments_in_idealstate_s": 5.4,
+    "watch_first_segment_online_s": 100.2,
+    "watch_all_segments_online_s(time to fully queryable)": 460.7,
+    "watch_poll_interval_s": 2,
+    "index_sizes": {
+      "segments": 33,
+      "bytes_by_index_type": {
+        "nullvalue_vector": 949412,
+        "vector_index": 3784856179,
+        "text_index": 274758990
+      },
+      "bytes_by_column_and_index": {
+        "brand": {
+          "nullvalue_vector": 144082
+        },
+        "bullet_point": {
+          "nullvalue_vector": 262546
+        },
+        "color": {
+          "nullvalue_vector": 271128
+        },
+        "description": {
+          "nullvalue_vector": 271128
+        },
+        "embedding": {
+          "vector_index": 3784856179
+        },
+        "text": {
+          "text_index": 274758990
+        },
+        "title": {
+          "nullvalue_vector": 528
+        }
+      }
+    }
+  }
+}

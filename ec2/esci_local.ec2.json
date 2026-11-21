@@ -1,0 +1,146 @@
+{
+  "tableName": "esci_local",
+  "schema": {
+    "schemaName": "esci_local",
+    "enableColumnBasedNullHandling": true,
+    "dimensionFieldSpecs": [
+      {
+        "name": "product_id",
+        "dataType": "STRING",
+        "fieldType": "DIMENSION",
+        "notNull": true
+      },
+      {
+        "name": "title",
+        "dataType": "STRING",
+        "fieldType": "DIMENSION",
+        "maxLength": 65536
+      },
+      {
+        "name": "description",
+        "dataType": "STRING",
+        "fieldType": "DIMENSION",
+        "maxLength": 65536
+      },
+      {
+        "name": "bullet_point",
+        "dataType": "STRING",
+        "fieldType": "DIMENSION",
+        "maxLength": 65536
+      },
+      {
+        "name": "brand",
+        "dataType": "STRING",
+        "fieldType": "DIMENSION",
+        "maxLength": 65536
+      },
+      {
+        "name": "color",
+        "dataType": "STRING",
+        "fieldType": "DIMENSION",
+        "maxLength": 65536
+      },
+      {
+        "name": "locale",
+        "dataType": "STRING",
+        "fieldType": "DIMENSION",
+        "notNull": true
+      },
+      {
+        "name": "text",
+        "dataType": "STRING",
+        "fieldType": "DIMENSION",
+        "notNull": true,
+        "maxLength": 65536
+      },
+      {
+        "name": "embedding",
+        "dataType": "FLOAT",
+        "fieldType": "DIMENSION",
+        "singleValueField": false,
+        "notNull": true
+      }
+    ]
+  },
+  "offline": {
+    "tableName": "esci_local_OFFLINE",
+    "tableType": "OFFLINE",
+    "segmentsConfig": {
+      "replication": "1",
+      "segmentPushType": "APPEND"
+    },
+    "tenants": {
+      "broker": "DefaultTenant",
+      "server": "DefaultTenant"
+    },
+    "tableIndexConfig": {
+      "loadMode": "MMAP",
+      "noDictionaryColumns": [
+        "text",
+        "embedding",
+        "title",
+        "description",
+        "bullet_point"
+      ]
+    },
+    "fieldConfigList": [
+      {
+        "name": "text",
+        "encodingType": "RAW",
+        "indexes": {
+          "text": {
+            "storeInSegmentFile": true
+          }
+        }
+      },
+      {
+        "name": "embedding",
+        "encodingType": "RAW",
+        "indexes": {
+          "vector": {
+            "vectorIndexType": "HNSW",
+            "vectorDimension": 768,
+            "vectorDistanceFunction": "COSINE",
+            "version": 1,
+            "properties": {
+              "maxBufferSizeMB": "512",
+              "buildThreads": "8",
+              "forceMerge": "false",
+              "parallelBuildMaxDocs": "20000"
+            }
+          }
+        }
+      },
+      {
+        "name": "title",
+        "encodingType": "RAW",
+        "indexes": {
+          "forward": {
+            "encodingType": "RAW"
+          }
+        }
+      },
+      {
+        "name": "description",
+        "encodingType": "RAW",
+        "indexes": {
+          "forward": {
+            "encodingType": "RAW"
+          }
+        }
+      },
+      {
+        "name": "bullet_point",
+        "encodingType": "RAW",
+        "indexes": {
+          "forward": {
+            "encodingType": "RAW"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "customConfigs": {}
+    }
+  }
+}

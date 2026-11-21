@@ -1,0 +1,60 @@
+# Local lake for the ESCI evaluation: MinIO (S3 API) + Iceberg REST catalog (SQLite JDBC backend).
+# Same images and catalog choice as the StarTree CE stack (~/.startree-ce), on separate ports so
+# both can run side by side.
+#
+#   docker compose -p esci-lake -f docker-compose.yml up -d
+#
+# From the host:   S3 http://localhost:9020 (minioadmin/minioadmin), console http://localhost:9021
+#                  Iceberg REST http://localhost:8190
+# From containers on network `esci-lake`:  S3 http://minio:9000, REST http://iceberg-rest:8181
+services:
+  minio:
+    image: bitnamilegacy/minio:2025.4.22
+    container_name: esci-minio
+    hostname: minio
+    ports:
+      - "9020:9000"
+      - "9021:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_DEFAULT_BUCKETS: "esci-warehouse"
+      MINIO_SKIP_CLIENT: "no"
+    volumes:
+      - ./data/minio:/bitnami/minio/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://127.0.0.1:9000/minio/health/live || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+    networks: [esci-lake]
+
+  iceberg-rest:
+    image: apache/iceberg-rest-fixture:1.9.1
+    container_name: esci-iceberg-rest
+    hostname: iceberg-rest
+    ports:
+      - "8190:8181"
+    environment:
+      CATALOG_WAREHOUSE: "s3://esci-warehouse/"
+      CATALOG_IO__IMPL: "org.apache.iceberg.aws.s3.S3FileIO"
+      CATALOG_S3_ENDPOINT: "http://minio:9000"
+      CATALOG_S3_PATH__STYLE__ACCESS: "true"
+      AWS_ACCESS_KEY_ID: "minioadmin"
+      AWS_SECRET_ACCESS_KEY: "minioadmin"
+      AWS_REGION: "us-east-1"
+      JAVA_OPTS: "-Xmx512m"
+      # Keep the SQLite catalog on the bind mount so tables survive down/up.
+      CATALOG_URI: "jdbc:sqlite:/persist/iceberg_catalog.db"
+    user: "0:0"
+    volumes:
+      - ./data/iceberg-catalog:/persist
+    depends_on:
+      minio: {condition: service_healthy}
+    restart: unless-stopped
+    networks: [esci-lake]
+
+networks:
+  esci-lake:
+    name: esci-lake

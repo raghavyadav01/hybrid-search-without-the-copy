@@ -1,0 +1,28 @@
+{
+  "name": "ref_vector_exact",
+  "qrels": "esci-us-test-large",
+  "config": {
+    "engine": "faiss 1.15.1 IndexFlatIP (exact)",
+    "model": "BAAI/bge-base-en-v1.5",
+    "dim": 768,
+    "metric": "inner product on L2-normalised vectors (cosine)",
+    "query_instruction": "Represent this sentence for searching relevant passages: ",
+    "k": 100,
+    "docs": 1215854
+  },
+  "metrics": {
+    "ndcg@10": 0.3502,
+    "n_ndcg@10": 22458,
+    "recall@100": 0.6089,
+    "n_recall@100": 22457,
+    "recall_es@100": 0.5291,
+    "n_recall_es@100": 22458,
+    "queries_with_empty_result": 0
+  },
+  "timing": {
+    "wall_secs": 76.5,
+    "queries": 22458,
+    "mean_secs_per_query": 0.00339
+  },
+  "written_at": "2026-10-23T18:25:22"
+}

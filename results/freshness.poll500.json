@@ -1,0 +1,273 @@
+{
+  "pinot_et": {
+    "runs": [
+      {
+        "run": 1,
+        "snapshot_id": 547689475724671540,
+        "new_files": [
+          "s3://esci-warehouse/esci/products_us_pi/data/locale=us/00000-0-f183d719-d194-461a-802f-146e11893c95.parquet"
+        ],
+        "commit_wall_s": 0.52,
+        "table_rows_after": 1225854,
+        "id_prefix": "FRSH01",
+        "sync_trigger": "POST /tasks/schedule right after commit (no periodic schedule configured)",
+        "trigger_call_s": 15.42,
+        "schedule_response": "{\"generationErrors\":\"\",\"ExternalTableSyncTask\":\"\",\"schedulingErrors\":\"\"}",
+        "commit_to_registered_s": 15.49,
+        "commit_to_segment_online_s": 15.49,
+        "segment_load_and_index_build_s": 0.0,
+        "commit_to_searchable_s": 15.97,
+        "new_segments": [
+          "b7f92633fd153a91e287a42800bca3c6"
+        ]
+      },
+      {
+        "run": 2,
+        "snapshot_id": 2064983761133517847,
+        "new_files": [
+          "s3://esci-warehouse/esci/products_us_pi/data/locale=us/00000-0-bdb16f8d-0150-4b4e-b2b9-ba69e476ca81.parquet"
+        ],
+        "commit_wall_s": 0.37,
+        "table_rows_after": 1235854,
+        "id_prefix": "FRSH02",
+        "sync_trigger": "POST /tasks/schedule right after commit (no periodic schedule configured)",
+        "trigger_call_s": 15.29,
+        "schedule_response": "{\"generationErrors\":\"\",\"ExternalTableSyncTask\":\"\",\"schedulingErrors\":\"\"}",
+        "commit_to_registered_s": 15.37,
+        "commit_to_segment_online_s": 15.37,
+        "segment_load_and_index_build_s": 0.0,
+        "commit_to_searchable_s": 15.66,
+        "new_segments": [
+          "d6efb98136b06352bbe1e54bd6d8a359"
+        ]
+      },
+      {
+        "run": 3,
+        "snapshot_id": 4728880856604672133,
+        "new_files": [
+          "s3://esci-warehouse/esci/products_us_pi/data/locale=us/00000-0-792bf247-aea1-4c51-b0bd-bc9601ce37af.parquet"
+        ],
+        "commit_wall_s": 0.41,
+        "table_rows_after": 1245854,
+        "id_prefix": "FRSH03",
+        "sync_trigger": "POST /tasks/schedule right after commit (no periodic schedule configured)",
+        "trigger_call_s": 15.21,
+        "schedule_response": "{\"generationErrors\":\"\",\"ExternalTableSyncTask\":\"\",\"schedulingErrors\":\"\"}",
+        "commit_to_registered_s": 15.29,
+        "commit_to_segment_online_s": 15.29,
+        "segment_load_and_index_build_s": 0.0,
+        "commit_to_searchable_s": 15.51,
+        "new_segments": [
+          "f471157d0d262c20e3ad97a4ff4404e4"
+        ]
+      }
+    ],
+    "median": {
+      "commit_wall_s": 0.41,
+      "trigger_call_s": 15.29,
+      "commit_to_registered_s": 15.37,
+      "commit_to_segment_online_s": 15.37,
+      "segment_load_and_index_build_s": 0.0,
+      "commit_to_searchable_s": 15.66
+    }
+  },
+  "es": {
+    "runs": [
+      {
+        "run": 7,
+        "snapshot_id": 4305939882189381775,
+        "new_files": [
+          "s3://esci-warehouse/esci/products_us_pi/data/locale=us/00000-0-abaf0946-7270-4fc4-bf4a-a3ed893115c2.parquet"
+        ],
+        "commit_wall_s": 0.37,
+        "table_rows_after": 1225854,
+        "id_prefix": "FRSH07",
+        "bulk_errors": 0,
+        "pipeline": "read new data file from MinIO -> bulk (4 workers, 500 docs) -> refresh; change set handed over at commit (no CDC/schedule lag modelled)",
+        "commit_to_read_start_s": 0.06,
+        "read_s": 0.26,
+        "bulk_s": 3.44,
+        "refresh_s": 0.04,
+        "refresh_to_searchable_s": 0.25,
+        "commit_to_searchable_s": 4.06
+      },
+      {
+        "run": 8,
+        "snapshot_id": 6487427653164062344,
+        "new_files": [
+          "s3://esci-warehouse/esci/products_us_pi/data/locale=us/00000-0-89a85747-3410-4c7a-823c-20112854d2bc.parquet"
+        ],
+        "commit_wall_s": 0.36,
+        "table_rows_after": 1225854,
+        "id_prefix": "FRSH08",
+        "bulk_errors": 0,
+        "pipeline": "read new data file from MinIO -> bulk (4 workers, 500 docs) -> refresh; change set handed over at commit (no CDC/schedule lag modelled)",
+        "commit_to_read_start_s": 0.06,
+        "read_s": 0.27,
+        "bulk_s": 2.84,
+        "refresh_s": 0.05,
+        "refresh_to_searchable_s": 0.17,
+        "commit_to_searchable_s": 3.4
+      },
+      {
+        "run": 9,
+        "snapshot_id": 1594640183387440249,
+        "new_files": [
+          "s3://esci-warehouse/esci/products_us_pi/data/locale=us/00000-0-9121e2f9-020d-4b95-adb1-28aeacaed346.parquet"
+        ],
+        "commit_wall_s": 0.36,
+        "table_rows_after": 1225854,
+        "id_prefix": "FRSH09",
+        "bulk_errors": 0,
+        "pipeline": "read new data file from MinIO -> bulk (4 workers, 500 docs) -> refresh; change set handed over at commit (no CDC/schedule lag modelled)",
+        "commit_to_read_start_s": 0.06,
+        "read_s": 0.27,
+        "bulk_s": 2.82,
+        "refresh_s": 0.06,
+        "refresh_to_searchable_s": 0.18,
+        "commit_to_searchable_s": 3.38
+      }
+    ],
+    "median": {
+      "commit_wall_s": 0.36,
+      "commit_to_read_start_s": 0.06,
+      "read_s": 0.27,
+      "bulk_s": 2.84,
+      "refresh_s": 0.05,
+      "refresh_to_searchable_s": 0.18,
+      "commit_to_searchable_s": 3.4
+    }
+  },
+  "os": {
+    "runs": [
+      {
+        "run": 10,
+        "snapshot_id": 8563021109676445945,
+        "new_files": [
+          "s3://esci-warehouse/esci/products_us_pi/data/locale=us/00000-0-ef3fc8e1-4d53-4ebb-b3c1-f3e536858fe2.parquet"
+        ],
+        "commit_wall_s": 0.37,
+        "table_rows_after": 1225854,
+        "id_prefix": "FRSH10",
+        "bulk_errors": 0,
+        "pipeline": "read new data file from MinIO -> bulk (4 workers, 500 docs) -> refresh; change set handed over at commit (no CDC/schedule lag modelled)",
+        "commit_to_read_start_s": 0.06,
+        "read_s": 0.25,
+        "bulk_s": 3.67,
+        "refresh_s": 0.16,
+        "refresh_to_searchable_s": 0.21,
+        "commit_to_searchable_s": 4.36
+      },
+      {
+        "run": 11,
+        "snapshot_id": 7183176380575497488,
+        "new_files": [
+          "s3://esci-warehouse/esci/products_us_pi/data/locale=us/00000-0-af09edcc-a1b8-4eaa-b3a1-67cf2a6b6264.parquet"
+        ],
+        "commit_wall_s": 0.37,
+        "table_rows_after": 1225854,
+        "id_prefix": "FRSH11",
+        "bulk_errors": 0,
+        "pipeline": "read new data file from MinIO -> bulk (4 workers, 500 docs) -> refresh; change set handed over at commit (no CDC/schedule lag modelled)",
+        "commit_to_read_start_s": 0.06,
+        "read_s": 0.26,
+        "bulk_s": 3.26,
+        "refresh_s": 0.15,
+        "refresh_to_searchable_s": 0.19,
+        "commit_to_searchable_s": 3.93
+      },
+      {
+        "run": 12,
+        "snapshot_id": 4630594876357179068,
+        "new_files": [
+          "s3://esci-warehouse/esci/products_us_pi/data/locale=us/00000-0-a7239d75-c38c-4215-bd6c-9027c6ed1447.parquet"
+        ],
+        "commit_wall_s": 0.34,
+        "table_rows_after": 1225854,
+        "id_prefix": "FRSH12",
+        "bulk_errors": 0,
+        "pipeline": "read new data file from MinIO -> bulk (4 workers, 500 docs) -> refresh; change set handed over at commit (no CDC/schedule lag modelled)",
+        "commit_to_read_start_s": 0.06,
+        "read_s": 0.25,
+        "bulk_s": 3.0,
+        "refresh_s": 0.12,
+        "refresh_to_searchable_s": 0.17,
+        "commit_to_searchable_s": 3.6
+      }
+    ],
+    "median": {
+      "commit_wall_s": 0.37,
+      "commit_to_read_start_s": 0.06,
+      "read_s": 0.25,
+      "bulk_s": 3.26,
+      "refresh_s": 0.15,
+      "refresh_to_searchable_s": 0.19,
+      "commit_to_searchable_s": 3.93
+    }
+  },
+  "pinot_local": {
+    "runs": [
+      {
+        "run": 4,
+        "snapshot_id": 811890461026296034,
+        "new_files": [
+          "s3://esci-warehouse/esci/products_us_pi/data/locale=us/00000-0-b4810282-3bfd-46f8-83af-510b7d760879.parquet"
+        ],
+        "commit_wall_s": 0.42,
+        "table_rows_after": 1225854,
+        "id_prefix": "FRSH04",
+        "job_rc": 0,
+        "ingestion_job_wall_s": 17.52,
+        "commit_to_job_start_s": 0.06,
+        "job_end_to_searchable_s": 1.25,
+        "commit_to_searchable_s": 18.83,
+        "new_segments": [
+          "esci_local_OFFLINE_fr4_0"
+        ]
+      },
+      {
+        "run": 5,
+        "snapshot_id": 6138296345665128043,
+        "new_files": [
+          "s3://esci-warehouse/esci/products_us_pi/data/locale=us/00000-0-102cc801-9ce5-4c5c-b847-98daabfa723e.parquet"
+        ],
+        "commit_wall_s": 0.4,
+        "table_rows_after": 1235854,
+        "id_prefix": "FRSH05",
+        "job_rc": 0,
+        "ingestion_job_wall_s": 16.62,
+        "commit_to_job_start_s": 0.06,
+        "job_end_to_searchable_s": 1.22,
+        "commit_to_searchable_s": 17.9,
+        "new_segments": [
+          "esci_local_OFFLINE_fr5_0"
+        ]
+      },
+      {
+        "run": 6,
+        "snapshot_id": 4066318492942555069,
+        "new_files": [
+          "s3://esci-warehouse/esci/products_us_pi/data/locale=us/00000-0-f0c3bd2b-377b-40c4-8c55-fdf02b746f6a.parquet"
+        ],
+        "commit_wall_s": 0.37,
+        "table_rows_after": 1245854,
+        "id_prefix": "FRSH06",
+        "job_rc": 0,
+        "ingestion_job_wall_s": 16.43,
+        "commit_to_job_start_s": 0.06,
+        "job_end_to_searchable_s": 1.2,
+        "commit_to_searchable_s": 17.7,
+        "new_segments": [
+          "esci_local_OFFLINE_fr6_0"
+        ]
+      }
+    ],
+    "median": {
+      "commit_wall_s": 0.4,
+      "ingestion_job_wall_s": 16.62,
+      "commit_to_job_start_s": 0.06,
+      "job_end_to_searchable_s": 1.22,
+      "commit_to_searchable_s": 17.9
+    }
+  }
+}

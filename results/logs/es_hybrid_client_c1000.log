@@ -1,0 +1,2 @@
+{"name": "es_hybrid_client_c1000", "ndcg@10": 0.3543, "n_ndcg@10": 22458, "recall@100": 0.62, "n_recall@100": 22457, "recall_es@100": 0.5379, "n_recall_es@100": 22458, "queries_with_empty_result": 0}
+{"definition": "per query: bm25 client ms + knn client ms (sequential client); includes warm-up queries of both input runs", "n": 22458, "client_ms_p50": 21.1, "client_ms_p95": 40.5, "client_ms_p99": 77.9}

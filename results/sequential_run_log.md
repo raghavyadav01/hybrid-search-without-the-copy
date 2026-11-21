@@ -1,0 +1,215 @@
+# Sequential benchmark run log
+- 2026-10-23 21:07:52 step0: stopped old port-shifted quickstart (pid 66236)
+- 2026-10-23 21:08:34 step0: cleared stp-cache/run tmp/local/et + pinot-tier/segments; paused 10 containers; NOT paused etdemo-polaris/rustfs (used by an active file-eligibility-e2e cluster, pid 99239, another session); other heavy procs: mvn test -T 1C in wt-file-eligibility (pid 24520), FE cluster JVM -Xmx6g (pid 99239); swap 48/49 GB used
+- 2026-10-23 21:08:53 step1: STP+OSS rebuild started (-o -Ppinot-oss -pl startree-service-startable,startree-tools -am install, -T 4)
+- 2026-10-23 21:10:21 step2: writing esci.products_us_pi (concurrent with step-1 build -> write time contended)
+- 2026-10-23 21:15:00 step2: esci.products_us_pi written (see results/iceberg_esci_products_us_pi.json)
+- 2026-10-23 21:15:04 ref_filter.py started (filtered references; during build, not a measured step)
+- 2026-10-23 21:29:20 step1: build SUCCESS (19:57 wall); full.cp kept (offline regen gave a strict subset, 573 vs 677 jars; same paths, jars updated in place); pinot-core has TextScoreStatsAggregationFunction, segment-spi TextScoreStats; ref_filter.py done (ref_hybrid_rrf_brand nDCG 0.3417)
+- 2026-10-23 21:39:24 step3: other session's mvn + FE cluster exited 21:38; etdemo containers stopped; note: macOS replayd (screen capture) ~190% CPU, not ours
+- 2026-10-23 21:47:57 step3: esci_et (products_us_pi) created + ExternalTableSyncTask scheduled at 1792816794.3N
+- 2026-10-23 21:48:14 step3: esci_et fully queryable at t0+460.7s; timings -> results/pinot_et_timings.json
+- 2026-10-23 21:51:44 et quality bm25 start
+- 2026-10-23 22:55:49 et quality bm25 done: {"name": "pinot_et_bm25", "ndcg@10": 0.2712, "n_ndcg@10": 22458, "recall@100": 0.5063, "n_recall@100": 22457, "recall_es@100": 0.4318, "n_recall_es@100": 22458, "queries_with_empty_result": 110}
+- 2026-10-23 22:55:49 et quality bm25_global start
+- 2026-10-23 23:56:26 et quality bm25_global done: {"name": "pinot_et_bm25_global", "ndcg@10": 0.3116, "n_ndcg@10": 22458, "recall@100": 0.5325, "n_recall@100": 22457, "recall_es@100": 0.4573, "n_recall_es@100": 22458, "queries_with_empty_result": 110
+- 2026-10-23 23:56:26 et quality vector start
+- 2026-10-24 01:04:35 et quality vector done: {"name": "pinot_et_vector", "ndcg@10": 0.3477, "n_ndcg@10": 22458, "recall@100": 0.6025, "n_recall@100": 22457, "recall_es@100": 0.5244, "n_recall_es@100": 22458, "queries_with_empty_result": 0}
+- 2026-10-24 01:04:35 et quality hybrid_sql start
+- 2026-10-24 03:58:02 NOTE: host thrashing: Docker Desktop VM holds 24 GB RSS with only MinIO+REST running, swap 53/54 GB, kernel_task 140% CPU, 58% sys; Pinot JVM only ~125% CPU; hybrid ~1 q/s. Plan: let ET hybrid_sql finish, then pause and report (restarting Docker Desktop needs user approval)
+- 2026-10-24 06:40:59 et quality hybrid_sql done: {"name": "pinot_et_hybrid_sql", "ndcg@10": 0.361, "n_ndcg@10": 22458, "recall@100": 0.6221, "n_recall@100": 22457, "recall_es@100": 0.5393, "n_recall_es@100": 22458, "queries_with_empty_result": 0}
+- 2026-10-24 06:40:59 et quality hybrid_client start
+- 2026-10-24 06:41:07 et quality hybrid_client done: {"name": "pinot_et_hybrid_client", "ndcg@10": 0.3605, "n_ndcg@10": 22458, "recall@100": 0.622, "n_recall@100": 22457, "recall_es@100": 0.5392, "n_recall_es@100": 22458, "queries_with_empty_result": 0}
+- 2026-10-24 06:41:07 et quality hybrid_filter start
+- 2026-10-24 06:41:08 paused before ET hybrid_filter (killed run_quality.sh)
+- 2026-10-24 06:41:35 interim table1.md/timings.md written; ET cluster (pid 54355) left running idle with esci_et loaded; 12 containers still stopped
+- 2026-10-24 06:41:43 moved stale previous-attempt pinot_local_bm25* / pinot_timings.json to results/prev_attempt/
+- RESUME (after the host is no longer swapping, e.g. Docker Desktop restarted / its memory limit lowered, Chrome/IDEA closed):
+  1. ET (cluster still up on :19000/:18000, or relaunch pinot/launch.sh + POST pinot/esci_et.pi.tableconfigs.json + schedule sync):
+     .venv/bin/python -I pinot_runs.py --table et --mode hybrid_filter ; .venv/bin/python -I pinot_runs.py --table et --latency
+     then kill $(cat stp-cache/run/quickstart.pid), rm -rf stp-cache/run/tmp, mc rm pinot-tier/segments
+  2. local: fresh cluster, POST pinot/esci_local.tableconfigs.json, ingestion job pinot/esci_local.ingestion-job.pi.yaml with
+     pinot/watch_table.sh, collect_timings_seq.py --table local, then pinot/run_quality.sh local
+  3. ES then OS: search_baselines.py --engine X up / index / timings / run --mode {bm25,knn,hybrid_native,hybrid_client} / latency / timings / down
+  4. docker start the containers in results/paused_containers.txt; make_table1.py; make_timings.py
+- 2026-10-24 11:21:02 RESUMED quality-only mode (coordinator): latency/cold/timing passes deferred until host stops swapping; swap 52447.25M
+- 2026-10-24 11:21:02 et quality hybrid_filter start (swap 52447.25M)
+- 2026-10-24 11:22:04 chain armed: after ET -> run_local.sh -> stop local cluster -> run_search.sh es os (pid 52351)
+- 2026-10-24 12:21:33 ORDER CHANGE (coordinator/user): ES -> OS -> Pinot local -> ET remainder. Stopped ET hybrid_filter run (partial, discarded), chain pid 52351, ET cluster pid 54355; cleared stp-cache/run/tmp + pinot-tier/segments; ET log archived without query lines. Not ours, left alone: etdemo-polaris-1, etdemo-rustfs-1 (running again), friendly_hugle, funny_allen, testcontainers-ryuk-*; swap 51214.38M
+- 2026-10-24 12:23:11 chain2 armed (pid 57245): ES -> OS -> local -> ET remainder (hybrid_filter, hybrid_sql_perseg); ES smoke-tested OK on the pi loader
+- 2026-10-24 12:23:12 es: up (swap 44829.50M)
+- 2026-10-24 12:23:12 es: index start (UNDER SWAP PRESSURE: timings indicative)
+- 2026-10-24 12:23:29 chain2 re-armed (pid 57450) after PID-reuse guard edit; run_search.sh es os continues unchanged
+- 2026-10-24 13:33:13 es: index done: "docs_indexed":1215854,"bulk_errors":0,"index_secs_total":4197.6,
+- 2026-10-24 13:33:16 es quality bm25 start
+- 2026-10-24 13:33:21 NOTE es: wait_merges hit its 3600 s cap with 6 merges still running (67 segments); ES quality runs proceed while background merges continue
+- 2026-10-24 13:36:00 es quality bm25 done: {"name": "es_bm25", "ndcg@10": 0.3116, "n_ndcg@10": 22458, "recall@100": 0.5324, "n_recall@100": 22457, "recall_es@100": 0.4572, "n_recall_es@100": 22458, "queries_with_empty_result": 110}
+- 2026-10-24 13:36:00 es quality knn start
+- 2026-10-24 14:06:01 NOTE es: container esci-es was an old container reused by docker start (heap -Xms1g/-Xmx1g, 2 GiB mem limit, not the script's 4g/9g); ES quality valid, ES index/timing numbers INVALID (under-provisioned). Before OS up: docker rm any stale esci-os.
+- 2026-10-24 14:06:10 no esci-os container exists (none to rm); OS will be created fresh by 'up' with -Xms4g -Xmx4g, -m 9g; up() now records actual heap/mem to results/<es|os>_container.json
+- 2026-10-24 15:20:33 coordinator: Docker Desktop restarted by user mid ES knn run; stopped chain2/run_search (ES knn partial, discard). Docker daemon not up yet.
+- 2026-10-24 15:27:18 STOPPED: Docker daemon disappeared during ES knn run (~15:20-15:27; docker.sock missing; not restarted by us). Killed chain2 + run_search + ES client. ES knn partial (no result). No Pinot cluster running.
+- 2026-10-24 15:43:43 RESUME full clean mode for ES/OS after user's Docker restart (quality + timings + latency); old 1g ES results moved to results/prev_attempt/es_1g/
+- 2026-10-24 15:43:44 es: removed stale container esci-es (if any); up with script defaults [swap 28022.31M, VM RSS 2603M]
+- 2026-10-24 15:44:08 es: up: {"container": "esci-es", "created": "2026-10-24T22:43:47.550115001Z", "mem_limit_bytes": 9663676416, "heap_env": ["ES_JAVA_OPTS=-Xms4g -Xmx4g"], "reused_existing_container": false, "checked_at": "2026-10-24T15:44:08"} [swap 29002.38M, VM RSS 7802M]
+- 2026-10-24 15:44:10 es: index start [swap 29401.06M, VM RSS 7850M]
+- 2026-10-24 15:54:21 NOTE es index: host swap rose 28.0 -> 39.6 GB during bulk load (VM RSS 15G); ES index timings measured under swap growth
+- 2026-10-24 16:00:39 es: index done: "docs_indexed":1215854,"bulk_errors":0,"index_secs_total":576.7,"segments_before_force_merge":19,"force_merge_secs":376.2,"index_secs_total_incl_force_merge":952.9,"store_bytes":4097693389,"segments":1, [swap 36224.69M, VM RSS 15G]
+- 2026-10-24 16:00:42 es quality bm25 start [swap 36168.69M, VM RSS 15G]
+- 2026-10-24 16:01:07 es quality bm25 done: {"name": "es_bm25", "ndcg@10": 0.3116, "n_ndcg@10": 22458, "recall@100": 0.5325, "n_recall@100": 22457, "recall_es@100": 0.4573, "n_recall_es@100": 22458, "queries_with_empty_result": 110} [swap 35868.44M, VM RSS 15G]
+- 2026-10-24 16:01:09 es quality knn start [swap 35828.44M, VM RSS 15G]
+- 2026-10-24 16:01:48 es quality knn done: {"name": "es_knn", "ndcg@10": 0.3233, "n_ndcg@10": 22458, "recall@100": 0.565, "n_recall@100": 22457, "recall_es@100": 0.4973, "n_recall_es@100": 22458, "queries_with_empty_result": 0} [swap 35605.44M, VM RSS 15G]
+- 2026-10-24 16:01:50 es quality hybrid_native start [swap 35597.44M, VM RSS 15G]
+- 2026-10-24 16:02:35 es quality hybrid_native done: {"name": "es_hybrid_native", "ndcg@10": 0.3446, "n_ndcg@10": 22458, "recall@100": 0.6161, "n_recall@100": 22457, "recall_es@100": 0.5349, "n_recall_es@100": 22458, "queries_with_empty_result": 0} [swap 35563.38M, VM RSS 15G]
+- 2026-10-24 16:02:37 es quality hybrid_client start [swap 35531.38M, VM RSS 15G]
+- 2026-10-24 16:02:47 es hybrid_client FAILED [swap 35435.38M, VM RSS 15G]
+- 2026-10-24 16:02:49 es quality hybrid_client done: {"name": "es_hybrid_client", "ndcg@10": 0.345, "n_ndcg@10": 22458, "recall@100": 0.6162, "n_recall@100": 22457, "recall_es@100": 0.535, "n_recall_es@100": 22458, "queries_with_empty_result": 0} [swap 35427.38M, VM RSS 15G]
+- 2026-10-24 16:02:52 es latency pass start [swap 35411.38M, VM RSS 15G]
+- 2026-10-24 16:03:29 es latency pass done [swap 36012.19M, VM RSS 15G]
+- 2026-10-24 16:03:34 es: down [swap 35852.19M, VM RSS 15G]
+- 2026-10-24 16:03:37 os: removed stale container esci-os (if any); up with script defaults [swap 35508.19M, VM RSS 15G]
+- 2026-10-24 16:03:56 os: up: {"container": "esci-os", "created": "2026-10-24T23:03:40.113176553Z", "mem_limit_bytes": 9663676416, "heap_env": ["OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g"], "reused_existing_container": false, "checked_at": "2026-10-24T16:03:56"} [swap 35258.25M, VM RSS 15G]
+- 2026-10-24 16:03:59 os: index start [swap 35218.25M, VM RSS 15G]
+- 2026-10-24 16:21:54 os: index done: "docs_indexed":1215854,"bulk_errors":0,"index_secs_total":750.9,"segments_before_force_merge":32,"force_merge_secs":290.5,"index_secs_total_incl_force_merge":1041.4,"store_bytes":4286158617,"segments":1, [swap 40313.19M, VM RSS 19G]
+- 2026-10-24 16:21:58 os quality bm25 start [swap 40297.19M, VM RSS 19G]
+- 2026-10-24 16:22:12 NOTE os index: host swap rose 35.2 -> 40.3 GB during bulk load (VM RSS 19G); OS index timings measured under swap growth
+- 2026-10-24 16:22:22 os quality bm25 done: {"name": "os_bm25", "ndcg@10": 0.3116, "n_ndcg@10": 22458, "recall@100": 0.5325, "n_recall@100": 22457, "recall_es@100": 0.4573, "n_recall_es@100": 22458, "queries_with_empty_result": 110} [swap 40038.38M, VM RSS 19G]
+- 2026-10-24 16:22:25 os quality knn start [swap 40014.38M, VM RSS 19G]
+- 2026-10-24 16:23:01 os quality knn done: {"name": "os_knn", "ndcg@10": 0.3275, "n_ndcg@10": 22458, "recall@100": 0.57, "n_recall@100": 22457, "recall_es@100": 0.5007, "n_recall_es@100": 22458, "queries_with_empty_result": 0} [swap 39888.81M, VM RSS 19G]
+- 2026-10-24 16:23:04 os quality hybrid_native start [swap 39856.81M, VM RSS 19G]
+- 2026-10-24 16:23:43 os quality hybrid_native done: {"name": "os_hybrid_native", "ndcg@10": 0.3475, "n_ndcg@10": 22458, "recall@100": 0.6166, "n_recall@100": 22457, "recall_es@100": 0.5351, "n_recall_es@100": 22458, "queries_with_empty_result": 0} [swap 39592.81M, VM RSS 19G]
+- 2026-10-24 16:23:45 os quality hybrid_client start [swap 39592.81M, VM RSS 19G]
+- 2026-10-24 16:23:55 os hybrid_client FAILED [swap 39560.81M, VM RSS 19G]
+- 2026-10-24 16:23:57 os quality hybrid_client done: {"name": "os_hybrid_client", "ndcg@10": 0.3479, "n_ndcg@10": 22458, "recall@100": 0.6167, "n_recall@100": 22457, "recall_es@100": 0.5352, "n_recall_es@100": 22458, "queries_with_empty_result": 0} [swap 39552.81M, VM RSS 19G]
+- 2026-10-24 16:24:00 os latency pass start [swap 39552.81M, VM RSS 19G]
+- 2026-10-24 16:24:40 os latency pass done [swap 39378.81M, VM RSS 19G]
+- 2026-10-24 16:24:44 os: down [swap 39250.81M, VM RSS 19G]
+- 2026-10-24 16:24:47 search ALL-DONE [swap 38873.19M, VM RSS 19G]
+- 2026-10-24 16:26:45 es/os hybrid_client re-run after fixing pct(Series) bug in its quality-run latency summary (quality files were already written; engines started, run, stopped again)
+- 2026-10-24 16:27:04 STOP after OS as instructed (Pinot local + ET remainder pending a user decision on Docker Desktop restart). swap 38508.19M
+- 2026-10-24 16:46:17 matched-recall rerun (user approved): ES then OS, num_candidates/ef_search=1000, k=100; results *_c1000
+- 2026-10-24 16:46:38 es c1000: up (existing container + volume reused), esci_products docs=1215854 [swap 38677.19M, VM RSS 19G]
+- 2026-10-24 16:47:38 es c1000 quality knn done: {"name": "es_knn_c1000", "ndcg@10": 0.3385, "n_ndcg@10": 22458, "recall@100": 0.5883, "n_recall@100": 22457, "recall_es@100": 0.5144, "n_recall_es@100": 22458, "queries_with_empty_result": 0} [swap 36614.06M, VM RSS 19G]
+- 2026-10-24 16:48:46 es c1000 quality hybrid_native done: {"name": "es_hybrid_native_c1000", "ndcg@10": 0.354, "n_ndcg@10": 22458, "recall@100": 0.6199, "n_recall@100": 22457, "recall_es@100": 0.5378, "n_recall_es@100": 22458, "queries_with_empty_result": 0} [swap 37312.00M, VM RSS 19G]
+- 2026-10-24 16:48:56 es c1000 quality hybrid_client done: {"name": "es_hybrid_client_c1000", "ndcg@10": 0.3543, "n_ndcg@10": 22458, "recall@100": 0.62, "n_recall@100": 22457, "recall_es@100": 0.5379, "n_recall_es@100": 22458, "queries_with_empty_result": 0} [swap 38248.75M, VM RSS 19G]
+- 2026-10-24 16:48:59 es c1000 latency pass start [swap 38247.94M, VM RSS 19G]
+- 2026-10-24 16:49:42 es c1000 latency pass done [swap 37760.38M, VM RSS 19G]
+- 2026-10-24 16:49:48 es c1000: down [swap 37680.69M, VM RSS 19G]
+- 2026-10-24 16:50:07 os c1000: up (existing container + volume reused), esci_products docs=1215854 [swap 38453.75M, VM RSS 19G]
+- 2026-10-24 16:51:22 os c1000 quality knn done: {"name": "os_knn_c1000", "ndcg@10": 0.3416, "n_ndcg@10": 22458, "recall@100": 0.5926, "n_recall@100": 22457, "recall_es@100": 0.5177, "n_recall_es@100": 22458, "queries_with_empty_result": 0} [swap 37278.00M, VM RSS 19G]
+- 2026-10-24 16:52:30 os c1000 quality hybrid_native done: {"name": "os_hybrid_native_c1000", "ndcg@10": 0.3562, "n_ndcg@10": 22458, "recall@100": 0.6205, "n_recall@100": 22457, "recall_es@100": 0.5381, "n_recall_es@100": 22458, "queries_with_empty_result": 0 [swap 37011.88M, VM RSS 19G]
+- 2026-10-24 16:52:40 os c1000 quality hybrid_client done: {"name": "os_hybrid_client_c1000", "ndcg@10": 0.3565, "n_ndcg@10": 22458, "recall@100": 0.6206, "n_recall@100": 22457, "recall_es@100": 0.5382, "n_recall_es@100": 22458, "queries_with_empty_result": 0 [swap 38611.62M, VM RSS 19G]
+- 2026-10-24 16:52:43 os c1000 latency pass start [swap 38587.62M, VM RSS 19G]
+- 2026-10-24 16:53:32 os c1000 latency pass done [swap 38155.62M, VM RSS 19G]
+- 2026-10-24 16:53:36 os c1000: down [swap 38107.62M, VM RSS 19G]
+- 2026-10-24 16:53:39 c1000 ALL-DONE [swap 38075.62M, VM RSS 19G]
+- 2026-10-24 16:54:44 c1000 done; table1.md + timings.md regenerated; STOP (Pinot local / ET remainder wait for Docker Desktop restart)
+- 2026-10-24 17:27:08 RESUME Pinot full clean mode after Docker Desktop restart (VM limit 11.7 GB, VM RSS 1650M, swap 38244.44M stale): chain3 = local (ingest, quality, latency, perseg) -> ET (onboard, cold, hybrid_filter, perseg, latency); first ET onboarding timings kept as results/pinot_et_timings.run1.json
+- 2026-10-24 17:27:13 local: ET cluster stopped (pid 54355), state cleared, ET log archived (gz); swap 38220.44M
+- 2026-10-24 17:27:29 local: fresh cluster up (pid 15762)
+{"unrecognizedProperties":{},"status":"TableConfigs esci_local successfully added"}
+- 2026-10-24 17:27:29 local: ingestion job start t0=1792888049.78 (UNDER SWAP PRESSURE: timings indicative)
+- 2026-10-24 17:40:11 local: ingestion job exit rc=0 wall=761.7 s
+- 2026-10-24 17:40:36 local: all segments ONLINE
+- 2026-10-24 17:40:36 local: timings -> results/pinot_local_timings.json (measured under swap pressure)
+- 2026-10-24 17:40:36 local quality bm25 start (swap 39762.81M)
+- 2026-10-24 17:40:46 NOTE: the hard-coded 'UNDER SWAP PRESSURE' tags in the local lines above are stale wording; this run started after the Docker restart (swap 38.9 -> 39.8 GB during ingest, +0.9 GB)
+- 2026-10-24 17:41:57 local quality bm25 done: {"name": "pinot_local_bm25", "ndcg@10": 0.2712, "n_ndcg@10": 22458, "recall@100": 0.5063, "n_recall@100": 22457, "recall_es@100": 0.4318, "n_recall_es@100": 22458, "queries_with_empty_result": 110}
+- 2026-10-24 17:41:57 local quality bm25_global start (swap 39674.81M)
+- 2026-10-24 17:43:12 local quality bm25_global done: {"name": "pinot_local_bm25_global", "ndcg@10": 0.3116, "n_ndcg@10": 22458, "recall@100": 0.5325, "n_recall@100": 22457, "recall_es@100": 0.4573, "n_recall_es@100": 22458, "queries_with_empty_result": 
+- 2026-10-24 17:43:12 local quality vector start (swap 39610.81M)
+- 2026-10-24 18:11:10 local quality vector done: {"name": "pinot_local_vector", "ndcg@10": 0.3477, "n_ndcg@10": 22458, "recall@100": 0.6025, "n_recall@100": 22457, "recall_es@100": 0.5244, "n_recall_es@100": 22458, "queries_with_empty_result": 0}
+- 2026-10-24 18:11:10 local quality hybrid_sql start (swap 33828.06M)
+- 2026-10-24 20:39:03 freshness.py written + append/rollback tested (snapshot 7159213620831837966 restored, orphan file deleted)
+- 2026-10-24 20:39:44 chain4 (freshness ET->local->ES->OS) armed to start after CHAIN3 ALL-DONE; paused containers will be restarted at the very end (starting the CE stack earlier would load the host during freshness runs)
+- 2026-10-24 20:39:46 fresh: ET start [swap 36678.81M]
+- 2026-10-24 20:50:31 INCIDENT: chain4's wait-grep matched its own 'armed' log line, so at 20:39:46 it launched a 2nd quickstart (died on port conflict; overwrote quickstart.pid -> restored to 15762, truncated quickstart.log) and POSTed esci_et + a sync to the LOCAL cluster. Fixed 20:5x: deleted esci_et table/schema from the local cluster, removed the dead JVM's tmp dir + pinot-tier segments. Local quality runs are unaffected; local hybrid_sql quality-run latency 20:39-20:5x includes ET segment builds (the isolated latency pass comes later). chain4 killed; will re-arm with a unique marker.
+- 2026-10-24 20:50:41 chain4 re-armed with an anchored end-of-chain3 marker
+- 2026-10-24 23:29:57 local quality hybrid_sql done: {"name": "pinot_local_hybrid_sql", "ndcg@10": 0.361, "n_ndcg@10": 22458, "recall@100": 0.6221, "n_recall@100": 22457, "recall_es@100": 0.5393, "n_recall_es@100": 22458, "queries_with_empty_result": 0}
+- 2026-10-24 23:29:57 local quality hybrid_client start (swap 40997.31M)
+- 2026-10-24 23:30:04 local quality hybrid_client done: {"name": "pinot_local_hybrid_client", "ndcg@10": 0.3606, "n_ndcg@10": 22458, "recall@100": 0.622, "n_recall@100": 22457, "recall_es@100": 0.5392, "n_recall_es@100": 22458, "queries_with_empty_result":
+- 2026-10-24 23:30:04 local quality hybrid_filter start (swap 40982.00M)
+- 2026-10-25 05:44:27 local quality hybrid_filter done: {"name": "pinot_local_hybrid_filter", "ndcg@10": 0.3424, "n_ndcg@10": 22458, "recall@100": 0.5887, "n_recall@100": 22457, "recall_es@100": 0.5135, "n_recall_es@100": 22458, "queries_with_empty_result"
+- 2026-10-25 05:44:27 local run_modes ALL-DONE
+- 2026-10-25 05:44:27 local latency pass start (swap 42037.69M)
+- 2026-10-25 07:45:32 local latency FAILED
+- 2026-10-25 07:45:32 local latency pass done (swap 42698.94M, delta 0.65 GB)
+- 2026-10-25 07:45:32 local quality hybrid_sql_perseg start (swap 42698.94M)
+- 2026-10-25 07:45:32 local hybrid_sql_perseg FAILED
+- 2026-10-25 07:45:32 local quality hybrid_sql_perseg done: 
+- 2026-10-25 07:45:32 local run_modes ALL-DONE
+- 2026-10-25 07:46:33 pinot cluster stopped (pid 15762)
+- 2026-10-25 11:51:29 DIAG: local latency + hybrid_sql_perseg FAILED at 07:45 = disk full (ENOSPC writing pinot_local_latency.json; perseg log could not be created), not a script bug. Only hybrid_filter c8 latency + perseg are missing; folded into chain5's freshness-local cluster. Docker engine also died at 07:26 (disk full): chain5 waits for docker info before starting.
+- 2026-10-25 12:37:21 chain5 relaunched (previous runner died with its session before Docker came back)
+- 2026-10-25 12:37:22 c5: start (docker + MinIO + REST up); log4j2-eval.xml active [swap 0.00M, free 87G]
+- 2026-10-25 12:37:22 c5: cluster stopped + cleaned (pid 15762) [swap 0.00M, free 87G]
+- 2026-10-25 12:38:46 c5: et: fresh cluster up (pid 10244) [swap 0.00M, free 86G]
+{"unrecognizedProperties":{},"status":"TableConfigs esci_et successfully added"}
+- 2026-10-25 12:42:21 c6: chain6 takes over (et onboarding in progress, t0=1792957126.92 from watch.jsonl) [swap 0.00M, free 77G]
+- 2026-10-25 12:44:26 c6: et: 33/33 ONLINE; quickstart.log 7 MB [swap 2162.38M, free 71G]
+- 2026-10-25 12:44:26 c6: et logcheck: 'esci_et_OFFLINE_controller_'=158 'Generating segment:'=33 'Uploaded segment:'=66 'Added 33 segments'=1 'Adding new ONLINE segment'=33 'Creating new text index'=33 'Created text index'=33 'Creating new Vector index'=33 'Created Vector index'=33 'from local indexDir'=33 'Added new immutable segment'=33 [swap 2146.38M, free 71G]
+- 2026-10-25 12:44:36 c6: et: timings -> results/pinot_et_timings.json (clean rerun) [swap 2042.38M, free 71G]
+- 2026-10-25 12:45:16 c6: et: cold probe done -> results/pinot_et_cold.json [swap 1415.44M, free 71G]
+- 2026-10-25 12:45:16 et quality hybrid_filter_s2000 start (swap 1415.44M)
+- 2026-10-25 13:03:30 et quality hybrid_filter_s2000 done: {"name": "pinot_et_hybrid_filter_s2000", "ndcg@10": 0.3448, "n_ndcg@10": 2000, "recall@100": 0.5953, "n_recall@100": 2000, "recall_es@100": 0.5189, "n_recall_es@100": 2000, "queries_with_empty_result"
+- 2026-10-25 13:03:30 et run_modes ALL-DONE
+- 2026-10-25 13:03:33 c6: et: hybrid_filter quickstart.log +0 MB [swap 1641.88M, free 75G]
+- 2026-10-25 13:03:33 et quality hybrid_sql_perseg_s2000 start (swap 1641.88M)
+- 2026-10-25 13:19:04 et quality hybrid_sql_perseg_s2000 done: {"name": "pinot_et_hybrid_sql_perseg_s2000", "ndcg@10": 0.3408, "n_ndcg@10": 2000, "recall@100": 0.6124, "n_recall@100": 2000, "recall_es@100": 0.5308, "n_recall_es@100": 2000, "queries_with_empty_res
+- 2026-10-25 13:19:04 et run_modes ALL-DONE
+- 2026-10-25 13:19:07 c6: et: hybrid_sql_perseg quickstart.log +0 MB [swap 1537.88M, free 75G]
+- 2026-10-25 13:19:07 c6: et latency pass start [swap 1537.88M, free 75G]
+- 2026-10-25 14:18:18 c6: et latency pass done (swap delta 0.47 GB; quickstart.log +1 MB) [swap 2021.25M, free 73G]
+- 2026-10-25 14:18:38 c6: cluster stopped + cleaned (pid 10244) [swap 2021.25M, free 81G]
+- 2026-10-25 14:18:38 c6: ET-REMAINDER DONE [swap 2021.25M, free 81G]
+- 2026-10-25 14:18:39 c6: fresh: ET start [swap 2021.25M, free 81G]
+- 2026-10-25 14:19:45 NOTE: an unrelated mvn test (pinot-common+pinot-controller, nice 19) ran during fresh: ET; compare ET freshness runs against ES/OS with that in mind
+- 2026-10-25 14:24:37 c6: fresh: esci_et onboarded (33 ONLINE) [swap 2013.25M, free 72G]
+- 2026-10-25 14:26:17 c6: fresh: ET done [swap 2013.25M, free 72G]
+- 2026-10-25 14:26:35 c6: cluster stopped + cleaned (pid 76116) [swap 2013.25M, free 80G]
+- 2026-10-25 14:26:36 c6: fresh: es start [swap 2013.25M, free 80G]
+- 2026-10-25 14:27:15 c6: fresh: es done (down) [swap 1981.25M, free 80G]
+- 2026-10-25 14:27:15 c6: fresh: os start [swap 1981.25M, free 80G]
+- 2026-10-25 14:27:49 c6: fresh: os done (down) [swap 1981.25M, free 83G]
+- 2026-10-25 14:27:49 c6: fresh: local start [swap 1981.25M, free 83G]
+- 2026-10-25 14:40:25 c6: fresh: esci_local base ingested (33 ONLINE) [swap 1901.25M, free 74G]
+- 2026-10-25 14:40:25 c6: local leftovers: hybrid_filter c8 latency + hybrid_sql_perseg (fresh local cluster, same base ingest) [swap 1901.25M, free 74G]
+- 2026-10-25 14:51:26 local quality hybrid_sql_perseg_s2000 start (swap 1893.25M)
+- 2026-10-25 15:11:37 local quality hybrid_sql_perseg_s2000 done: {"name": "pinot_local_hybrid_sql_perseg_s2000", "ndcg@10": 0.3407, "n_ndcg@10": 2000, "recall@100": 0.6124, "n_recall@100": 2000, "recall_es@100": 0.5308, "n_recall_es@100": 2000, "queries_with_empty_
+- 2026-10-25 15:11:37 local run_modes ALL-DONE
+- 2026-10-25 15:12:47 c6: fresh: local done [swap 1893.25M, free 74G]
+- 2026-10-25 15:13:04 c6: cluster stopped + cleaned (pid 78888) [swap 1893.25M, free 83G]
+- 2026-10-25 15:13:07 c6: fresh: done (table restored to original snapshot) [swap 1893.25M, free 83G]
+- 2026-10-25 15:13:08 c6: paused containers restarted [swap 1877.25M, free 83G]
+- 2026-10-25 15:14:04 c6: CHAIN6 ALL-DONE [swap 1645.25M, free 82G]
+- 2026-10-25 22:41:42 ISIR fix: ET cluster up with readiness/convergence pollIntervalMs=500 (was 30 s default) to rerun freshness + latency profiling; old freshness kept as results/freshness.poll30s.json
+- 2026-10-25 22:41:50 poll500: esci_et 33 ONLINE; freshness ET runs start
+- 2026-10-25 22:42:45 poll500: freshness ET done (rolled back)
+- 2026-10-25 23:13:09 latency fixes in build: (1) STP prefetch skip for TEXT_SCORE/TEXT_MATCH index-only columns (on top of STP #5001), (2) OSS PinotRexExecutor folds numeric->float casts + literal arrays without Janino. Rerun: hybrid_sql s2000 quality check, then ET latency pass. Pre-fix latency kept as results/pinot_et_latency.pre-fix.json
+- 2026-10-25 23:16:48 fix: hybrid_sql s2000 done: {"name": "pinot_et_hybrid_sql_s2000", "ndcg@10": 0.3601, "n_ndcg@10": 2000, "recall@100": 0.6234, "n_recall@100": 2000, "recall_es@100": 0.5408, "n_recall_es@10
+- 2026-10-25 23:30:29 fix: ET latency pass done
+- 2026-10-25 23:31:05 seg-k 20 trial: vector+hybrid_sql s2000 quality, then latency vector/hybrid_sql/hybrid_filter with --seg-k 20 (k100 results saved as *.fix-k100.*)
+- 2026-10-25 23:33:09 seg-k 20 rejected (vector .344->.332, hybrid .360->.349 on s2000); k100 kept as canonical, k20 files renamed *.k20.*
+- 2026-10-25 23:36:19 ISIR v2 done (5 pp): latency table, freshness, sampled rows, layout, ES/OS config; cluster stopped
+- 2026-10-26 18:27:53 freshness ET with maxBufferSizeMB=512 + parallel HNSW (buildThreads=8, per-thread IndexWriter, addIndexes, parallelBuildMaxDocs=20000): commit->searchable 3.58/2.73/2.70 s (was 15.7 s; ES 3.4, OS 3.9). Onboarding with 512 MB buffer alone (17:54 run): HNSW p50 34 s (was 69), all 33 ONLINE 198 s after sync (was 328)
+- 2026-10-26 18:49:42 vidx: latency pass (vector,hybrid_sql,hybrid_filter; c1,c8) with --vector-fn index (VECTOR_DISTANCE from HNSW search)
+- 2026-10-26 18:53:09 vidx quality vector s2000: {"latency": {"warmup_excluded": 200, "n": 1800, "client_ms_p50": 67.0, "client_ms_p95": 115.2, "client_ms_p99": 163.3, "broker_ms_p50": 60.0, "broker_ms_p95": 108.0, "broker_ms_p99": 158.0, "client_ms_mean": 70.8, "note": "from the quality run (concurrency 8); see pinot_et_latency.json for the isolated pass"}, "errors": 0}
+- 2026-10-26 18:53:29 vidx quality hybrid_sql s2000: {"latency": {"warmup_excluded": 200, "n": 1800, "client_ms_p50": 186.6, "client_ms_p95": 231.0, "client_ms_p99": 257.1, "broker_ms_p50": 179.0, "broker_ms_p95": 223.0, "broker_ms_p99": 249.0, "client_ms_mean": 189.7, "note": "from the quality run (concurrency 8); see pinot_et_latency.json for the isolated pass"}, "errors": 0}
+- 2026-10-26 18:54:19 vidx ALL-DONE
+- 2026-10-26 19:08:15 CORRECTION: 18:27 freshness (2.7 s) and 18:49 vidx latency/quality were on corrupted HNSW (buffered path kept a reused float[]); fixed (clone), tier copies wiped, table rebuilt (198 s, HNSW p50 39.8 s). Re-measured: vector s2000 nDCG .3473 (vectorDistance) / .3472 (cosineDistance); freshness ET 3.42/2.76/2.65 s, fresh rows found by vector search at d=0
+- 2026-10-26 19:08:19 vidx: latency pass (vector,hybrid_sql,hybrid_filter; c1,c8) with --vector-fn index (VECTOR_DISTANCE from HNSW search)
+- 2026-10-26 19:11:40 vidx quality vector s2000: {"latency": {"warmup_excluded": 200, "n": 1800, "client_ms_p50": 70.1, "client_ms_p95": 121.1, "client_ms_p99": 161.1, "broker_ms_p50": 63.0, "broker_ms_p95": 113.0, "broker_ms_p99": 150.0, "client_ms_mean": 75.2, "note": "from the quality run (concurrency 8); see pinot_et_latency.json for the isolated pass"}, "errors": 0}
+- 2026-10-26 19:12:01 vidx quality hybrid_sql s2000: {"latency": {"warmup_excluded": 200, "n": 1800, "client_ms_p50": 183.0, "client_ms_p95": 234.1, "client_ms_p99": 254.2, "broker_ms_p50": 175.0, "broker_ms_p95": 226.0, "broker_ms_p99": 246.0, "client_ms_mean": 185.7, "note": "from the quality run (concurrency 8); see pinot_et_latency.json for the isolated pass"}, "errors": 0}
+- 2026-10-26 19:12:50 vidx ALL-DONE
+- 2026-10-26 19:19:02 simd: Lucene Panama vectorization enabled on JDK 25 (patched VectorizationProvider version check, --add-modules jdk.incubator.vector); onboarding 150.0 s sync->33 ONLINE, HNSW p50 26.6 s, text p50 3.8 s, first segment 76.3 s
+- 2026-10-26 19:19:02 simd quality vector s2000: {"name": "pinot_et_vector_s2000_vidx", "ndcg@10": 0.3473, "n_ndcg@10": 2000, "recall@100": 0.6062, "n_recall@100": 2000, "recall_es@100": 0.5282, "n_recall_es@100": 2000, "queries_with_empty_result": 0}
+- 2026-10-26 19:19:26 simd quality hybrid_sql s2000: {"name": "pinot_et_hybrid_sql_s2000_vidx", "ndcg@10": 0.3615, "n_ndcg@10": 2000, "recall@100": 0.6233, "n_recall@100": 2000, "recall_es@100": 0.5413, "n_recall_es@100": 2000, "queries_with_empty_result": 0}
+- 2026-10-26 19:20:26 simd freshness ET: 1 3.41 1d665fc1e041c7fc5d1c06396da32779 2 2.68 4ba5c4d7366ad6680e5cb1a948db5a5f 3 2.68 24627310c60cd0d8387e7a57900ac666 
+- 2026-10-26 19:23:56 simd ALL-DONE
+- 2026-10-26 19:27:35 ksweep seg-k 10: quality {"name": "pinot_et_vector_s2000_vidx", "ndcg@10": 0.324, "n_ndcg@10": 2000, "recall@100": 0.4668, "n_recall@100": 2000, "recall_es@100": 0.3936, "n_recall_es@100": 2000, "queries_with_empty_result": 0} | c1 p50/p99, c8 qps: 9.5 13.3 266.9
+- 2026-10-26 19:28:05 ksweep seg-k 20: quality {"name": "pinot_et_vector_s2000_vidx", "ndcg@10": 0.3346, "n_ndcg@10": 2000, "recall@100": 0.5656, "n_recall@100": 2000, "recall_es@100": 0.4912, "n_recall_es@100": 2000, "queries_with_empty_result": 0} | c1 p50/p99, c8 qps: 10.2 13.9 221.2
+- 2026-10-26 19:28:40 ksweep seg-k 50: quality {"name": "pinot_et_vector_s2000_vidx", "ndcg@10": 0.3445, "n_ndcg@10": 2000, "recall@100": 0.5994, "n_recall@100": 2000, "recall_es@100": 0.5234, "n_recall_es@100": 2000, "queries_with_empty_result": 0} | c1 p50/p99, c8 qps: 11.6 16.1 180.4
+- 2026-10-26 19:28:57 ksweep ALL-DONE
+- 2026-10-26 19:29:20 matched recall (s2000): ES nc200 .3221/.572 4.4ms 739qps; ES nc1000 .3363/.5908 5.8ms 630qps; OS nc200 .3246/.570; OS ef1000 .3396/.5934; Pinot k20 .3346/.5656 10.2ms 221qps; k50 .3445/.5994 11.6ms 180qps; k100 .3473/.6062 13.2ms 136qps
+- 2026-10-26 19:34:52 skewed layout (esci.products_us_skew, sorted by brand, 33 files): s2000 BM25 per-file .2934/.5128, global .3142/.5316; random layout per-file .2722/.507, global .3141/.5317
+- 2026-10-26 21:41:54 EC2 numbers in paper (setup, Table III, Table IV, onboarding, freshness, abstract/intro/limitations); 8-file layout result: k100 R@100 .591 nDCG .338, 9.5 ms p50, 250/281 QPS c8/c32; hybrid .3525, 40 ms, 71 QPS; onboarding 228 s

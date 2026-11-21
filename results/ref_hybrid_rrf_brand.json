@@ -1,0 +1,26 @@
+{
+  "name": "ref_hybrid_rrf_brand",
+  "qrels": "esci-us-test-large",
+  "config": {
+    "fusion": "RRF",
+    "rrf_k": 60,
+    "inputs": [
+      "ref_bm25_brand",
+      "ref_vector_exact_brand"
+    ],
+    "filter": "brand IS NOT NULL",
+    "input_depth": 100,
+    "output_depth": 100
+  },
+  "metrics": {
+    "ndcg@10": 0.3417,
+    "n_ndcg@10": 22458,
+    "recall@100": 0.588,
+    "n_recall@100": 22457,
+    "recall_es@100": 0.5129,
+    "n_recall_es@100": 22458,
+    "queries_with_empty_result": 0
+  },
+  "timing": {},
+  "written_at": "2026-10-23T21:25:22"
+}

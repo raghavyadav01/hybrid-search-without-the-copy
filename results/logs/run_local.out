@@ -1,0 +1,4 @@
+$HOME/... line 55: 15946 Terminated: 15          nohup bash pinot/watch_table.sh esci_local_OFFLINE $RUN/local/watch.jsonl > /dev/null 2>&1
+pinot/run_modes.sh: line 8: results/logs/pinot_local_hybrid_sql_perseg.log: No space left on device
+grep: results/logs/pinot_local_hybrid_sql_perseg.log: No such file or directory
+LOCAL-DONE

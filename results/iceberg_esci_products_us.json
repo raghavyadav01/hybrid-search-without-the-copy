@@ -1,0 +1,27 @@
+{
+  "table": "esci.products_us",
+  "catalog": {
+    "type": "rest",
+    "uri": "http://localhost:8190",
+    "uri_in_docker_network": "http://iceberg-rest:8181",
+    "backend": "iceberg-rest-fixture 1.9.1, SQLite JDBC"
+  },
+  "warehouse": "s3://esci-warehouse/",
+  "s3_endpoint_host": "http://localhost:9020",
+  "s3_endpoint_in_docker_network": "http://minio:9000",
+  "metadata_location": "s3://esci-warehouse/esci/products_us/metadata/00002-b31edb97-b04a-4cde-8cef-b8bb51aebcbb.metadata.json",
+  "location": "s3://esci-warehouse/esci/products_us",
+  "format_version": 2,
+  "partition_spec": "[\n  1000: locale: identity(7)\n]",
+  "rows": 1215854,
+  "data_files": 33,
+  "file_mb_min": 123.0,
+  "file_mb_median": 125.8,
+  "file_mb_max": 129.6,
+  "total_gb": 4.05,
+  "snapshots": 33,
+  "current_snapshot_id": 4953356444817667459,
+  "write_secs": 64.4,
+  "schema": "table {\n  1: product_id: required string\n  2: title: optional string\n  3: description: optional string\n  4: bullet_point: optional string\n  5: brand: optional string\n  6: color: optional string\n  7: locale: required string\n  8: text: required string\n  9: embedding: required list<float>\n}",
+  "locale_field_id": 7
+}

@@ -1,0 +1,5 @@
+small ref_bm25 0.2478 0.4664 8956
+small ref_bm25_stem 0.2631 0.4958 8956
+small ref_vector_exact 0.2831 0.543 8956
+small ref_hybrid_rrf_bm25 0.2926 0.5586 8956
+small ref_hybrid_rrf_bm25_stem 0.3018 0.5677 8956

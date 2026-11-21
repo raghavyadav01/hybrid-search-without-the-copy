@@ -1,0 +1,26 @@
+{
+  "name": "pinot_local_hybrid_client",
+  "qrels": "esci-us-test-large",
+  "config": {
+    "engine": "client-side RRF",
+    "rrf_k": 60,
+    "inputs": [
+      "pinot_local_bm25_global",
+      "pinot_local_vector"
+    ],
+    "input_depth": 100,
+    "output_depth": 100,
+    "table": "esci_local"
+  },
+  "metrics": {
+    "ndcg@10": 0.3606,
+    "n_ndcg@10": 22458,
+    "recall@100": 0.622,
+    "n_recall@100": 22457,
+    "recall_es@100": 0.5392,
+    "n_recall_es@100": 22458,
+    "queries_with_empty_result": 0
+  },
+  "timing": {},
+  "written_at": "2026-10-24T23:30:04"
+}

@@ -1,0 +1,3 @@
+bfab7848764091f27524e2ac8f6b19706791929fd70c2cc9a5a85a900a1dd6a4
+{"number": "9.5.5", "build_flavor": "default", "build_type": "docker", "build_hash": "48acba663b09e70b115dd879329141506c377890", "build_date": "2026-09-30T22:12:03.984586187Z", "build_snapshot": false, "lucene_version": "10.5.1", "minimum_wire_compatibility_version": "8.19.0", "minimum_index_compatibility_version": "8.0.0"}
+{"container": "esci-es", "created": "2026-10-24T22:43:47.550115001Z", "mem_limit_bytes": 9663676416, "heap_env": ["ES_JAVA_OPTS=-Xms4g -Xmx4g"], "reused_existing_container": false, "checked_at": "2026-10-24T15:44:08"}

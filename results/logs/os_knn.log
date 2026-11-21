@@ -1,0 +1,2 @@
+{"name": "os_knn", "ndcg@10": 0.3275, "n_ndcg@10": 22458, "recall@100": 0.57, "n_recall@100": 22457, "recall_es@100": 0.5007, "n_recall_es@100": 22458, "queries_with_empty_result": 0}
+{"latency": {"warmup_excluded": 500, "n": 21958, "client_ms_p50": 9.5, "client_ms_p95": 15.5, "client_ms_p99": 20.5, "server_took_ms_p50": 2.0, "server_took_ms_p95": 4.0, "server_took_ms_p99": 7.0, "client_ms_mean": 10.1, "note": "from the quality run (concurrency 8, engine alone on the laptop); see os_latency.json for the isolated pass"}, "errors": 0}

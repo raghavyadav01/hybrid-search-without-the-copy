@@ -1,0 +1,36 @@
+executionFrameworkSpec:
+  name: standalone
+  segmentGenerationJobRunnerClassName: org.apache.pinot.plugin.ingestion.batch.standalone.SegmentGenerationJobRunner
+  segmentMetadataPushJobRunnerClassName: org.apache.pinot.plugin.ingestion.batch.standalone.SegmentMetadataPushJobRunner
+jobType: SegmentCreationAndMetadataPush
+inputDirURI: s3://esci-warehouse/esci/products_us/data/locale=us/
+includeFileNamePattern: glob:**/{00000-0-6ecd7b9c-c0a9-41cb-ba6a-1404e36eb4d0,00000-0-724bd2ec-4211-44b7-b71d-069118107226,00000-0-84834278-1877-4bc9-a10e-a11ab8492900,00000-0-8870b84e-e25c-481e-834d-4ca9ec658e8a,00000-0-916ef7e5-714a-46ee-86dc-56afa22b79df,00000-0-948525a1-b3a9-4cf4-8824-154d7b8926c8,00000-0-a52465a4-8b6b-4e0d-98ea-f35e3f5d2efd,00000-0-bb889704-8ce1-4581-be57-782965ff7dc8,00000-0-bd17e0dc-3206-4b49-b8d5-f605d10afb91,00000-0-bfc233e3-ece8-4e52-8301-032a755dc75a,00000-0-caa9fe07-b8d1-412a-a443-730e3f307d29,00000-0-cf9107ec-5863-493a-8c31-81136f44c1cb,00000-0-d27c0f44-dfd8-4d7b-b33a-d7b92c4f7e6a,00000-0-d3e3df42-7428-45af-96fa-66979f53240c,00000-0-d8c36410-acd7-4ded-b05a-391f7ee4925f,00000-0-dd7c024c-4ccd-4b84-885c-0c71c47878b7,00000-0-e6dcc640-aa8f-418f-acdf-08aecaf30a6d,00000-0-f16030c0-b17c-4870-b262-8950bcd9749b}.parquet
+outputDirURI: file://$EVAL_HOME/stp-cache/run/local/segments_b2/
+overwriteOutput: true
+segmentCreationJobParallelism: 3
+segmentNameGeneratorSpec:
+  type: simple
+  configs:
+    segment.name.postfix: b
+pinotFSSpecs:
+  - scheme: file
+    className: org.apache.pinot.spi.filesystem.LocalPinotFS
+  - scheme: s3
+    className: org.apache.pinot.plugin.filesystem.S3PinotFS
+    configs:
+      region: us-east-1
+      endpoint: http://127.0.0.1:9020
+      accessKey: minioadmin
+      secretKey: minioadmin
+recordReaderSpec:
+  dataFormat: parquet
+  className: org.apache.pinot.plugin.inputformat.parquet.ParquetRecordReader
+tableSpec:
+  tableName: esci_local
+  schemaURI: http://localhost:19000/tables/esci_local/schema
+  tableConfigURI: http://localhost:19000/tables/esci_local
+pinotClusterSpecs:
+  - controllerURI: http://localhost:19000
+pushJobSpec:
+  pushAttempts: 2
+  pushParallelism: 4

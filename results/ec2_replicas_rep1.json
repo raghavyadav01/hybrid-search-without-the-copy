@@ -1,0 +1,116 @@
+{
+  "pinot:bm25:esci_et:100": {
+    "c1": {
+      "stats_cache_hit": null,
+      "n": 1000,
+      "p50": 11.6,
+      "p95": 20.6,
+      "p99": 27.2,
+      "qps": 78.9,
+      "errors": 0
+    },
+    "c8": {
+      "stats_cache_hit": null,
+      "n": 1000,
+      "p50": 45.3,
+      "p95": 66.6,
+      "p99": 80.8,
+      "qps": 170.4,
+      "errors": 0
+    },
+    "c32": {
+      "stats_cache_hit": null,
+      "n": 1000,
+      "p50": 173.0,
+      "p95": 227.0,
+      "p99": 244.0,
+      "qps": 180.2,
+      "errors": 0
+    },
+    "c64": {
+      "stats_cache_hit": null,
+      "n": 1000,
+      "p50": 349.6,
+      "p95": 434.0,
+      "p99": 472.8,
+      "qps": 177.7,
+      "errors": 0
+    }
+  },
+  "pinot:vector:esci_et:100": {
+    "c1": {
+      "stats_cache_hit": null,
+      "n": 1000,
+      "p50": 17.4,
+      "p95": 25.2,
+      "p99": 31.4,
+      "qps": 53.8,
+      "errors": 0
+    },
+    "c8": {
+      "stats_cache_hit": null,
+      "n": 1000,
+      "p50": 76.2,
+      "p95": 110.5,
+      "p99": 131.8,
+      "qps": 101.5,
+      "errors": 0
+    },
+    "c32": {
+      "stats_cache_hit": null,
+      "n": 1000,
+      "p50": 280.1,
+      "p95": 350.7,
+      "p99": 456.7,
+      "qps": 111.4,
+      "errors": 0
+    },
+    "c64": {
+      "stats_cache_hit": null,
+      "n": 1000,
+      "p50": 579.7,
+      "p95": 651.1,
+      "p99": 718.5,
+      "qps": 110.8,
+      "errors": 0
+    }
+  },
+  "pinot:hybridc:esci_et:100": {
+    "c1": {
+      "stats_cache_hit": null,
+      "n": 1000,
+      "p50": 23.5,
+      "p95": 31.6,
+      "p99": 38.0,
+      "qps": 40.8,
+      "errors": 0
+    },
+    "c8": {
+      "stats_cache_hit": null,
+      "n": 1000,
+      "p50": 117.8,
+      "p95": 158.3,
+      "p99": 194.7,
+      "qps": 66.4,
+      "errors": 0
+    },
+    "c32": {
+      "stats_cache_hit": null,
+      "n": 1000,
+      "p50": 457.4,
+      "p95": 532.9,
+      "p99": 581.3,
+      "qps": 69.3,
+      "errors": 0
+    },
+    "c64": {
+      "stats_cache_hit": null,
+      "n": 1000,
+      "p50": 910.3,
+      "p95": 1044.5,
+      "p99": 1182.9,
+      "qps": 69.6,
+      "errors": 0
+    }
+  }
+}

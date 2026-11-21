@@ -1,0 +1,24 @@
+{
+  "n": 5000,
+  "total_docs": 1215854,
+  "max_seq_length": 256,
+  "runs": [
+    {
+      "device": "mps",
+      "fp16": false,
+      "batch": 128,
+      "secs": 29.5,
+      "docs_per_sec": 169.5,
+      "eta_full_hours": 1.99
+    },
+    {
+      "device": "mps",
+      "fp16": true,
+      "batch": 128,
+      "secs": 18.8,
+      "docs_per_sec": 266.5,
+      "eta_full_hours": 1.27,
+      "cos_fp16_vs_fp32_min": 0.9995296001434326
+    }
+  ]
+}

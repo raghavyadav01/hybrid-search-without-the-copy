@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<configuration>
+  <property><name>fs.s3a.endpoint.region</name><value>us-west-2</value></property>
+  <property><name>fs.s3a.aws.credentials.provider</name><value>software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider</value></property>
+</configuration>

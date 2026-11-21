@@ -1,0 +1,69 @@
+{
+  "os": {
+    "runs": [
+      {
+        "run": 10,
+        "snapshot_id": 756529445164087844,
+        "new_files": [
+          "s3://YOUR-BUCKET/warehouse/esci/products_us_pi/data/locale=us/00000-0-7c7bd66f-ede8-4d9d-842f-c7926bbe403d.parquet"
+        ],
+        "commit_wall_s": 1.16,
+        "table_rows_after": 1225854,
+        "id_prefix": "FRSH10",
+        "bulk_errors": 0,
+        "pipeline": "read new data file from MinIO -> bulk (4 workers, 500 docs) -> refresh; change set handed over at commit (no CDC/schedule lag modelled)",
+        "commit_to_read_start_s": 0.19,
+        "read_s": 0.58,
+        "bulk_s": 2.52,
+        "refresh_s": 0.16,
+        "refresh_to_searchable_s": 0.11,
+        "commit_to_searchable_s": 3.57
+      },
+      {
+        "run": 11,
+        "snapshot_id": 8883470256244227425,
+        "new_files": [
+          "s3://YOUR-BUCKET/warehouse/esci/products_us_pi/data/locale=us/00000-0-7fff3ce4-f89f-4cd0-9d82-5a11896f4501.parquet"
+        ],
+        "commit_wall_s": 1.05,
+        "table_rows_after": 1225854,
+        "id_prefix": "FRSH11",
+        "bulk_errors": 0,
+        "pipeline": "read new data file from MinIO -> bulk (4 workers, 500 docs) -> refresh; change set handed over at commit (no CDC/schedule lag modelled)",
+        "commit_to_read_start_s": 0.18,
+        "read_s": 0.57,
+        "bulk_s": 2.53,
+        "refresh_s": 0.17,
+        "refresh_to_searchable_s": 0.13,
+        "commit_to_searchable_s": 3.59
+      },
+      {
+        "run": 12,
+        "snapshot_id": 5786014355125161978,
+        "new_files": [
+          "s3://YOUR-BUCKET/warehouse/esci/products_us_pi/data/locale=us/00000-0-0334053b-15f7-499f-85a7-e2b0461a8e0b.parquet"
+        ],
+        "commit_wall_s": 1.01,
+        "table_rows_after": 1225854,
+        "id_prefix": "FRSH12",
+        "bulk_errors": 0,
+        "pipeline": "read new data file from MinIO -> bulk (4 workers, 500 docs) -> refresh; change set handed over at commit (no CDC/schedule lag modelled)",
+        "commit_to_read_start_s": 0.19,
+        "read_s": 0.59,
+        "bulk_s": 2.61,
+        "refresh_s": 0.1,
+        "refresh_to_searchable_s": 0.12,
+        "commit_to_searchable_s": 3.61
+      }
+    ],
+    "median": {
+      "commit_wall_s": 1.05,
+      "commit_to_read_start_s": 0.19,
+      "read_s": 0.58,
+      "bulk_s": 2.53,
+      "refresh_s": 0.16,
+      "refresh_to_searchable_s": 0.12,
+      "commit_to_searchable_s": 3.59
+    }
+  }
+}

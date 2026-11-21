@@ -1,0 +1,104 @@
+00000-0-0596d54e-b338-4b47-87c6-1dd320ee7da7.parquet: queued 36862 docs, 12s
+00000-0-0b6a24b8-9f67-48c9-a368-1001e4d364be.parquet: queued 73724 docs, 24s
+00000-0-0f48482a-a05f-444a-933a-6e82c46a0400.parquet: queued 110586 docs, 35s
+00000-0-0fa79d2f-bb73-4567-95ab-0746dafd54af.parquet: queued 147448 docs, 47s
+00000-0-11e62b56-c485-4e40-acdf-10ed4a5ff0f1.parquet: queued 184310 docs, 59s
+00000-0-197dfeb8-6e54-47fc-a9f4-e01071eac0e2.parquet: queued 221172 docs, 71s
+00000-0-199bf574-85e5-47d9-aad5-935614ca570a.parquet: queued 258034 docs, 82s
+00000-0-245e74b1-f5f7-43ad-888d-21c58a3eefd3.parquet: queued 294304 docs, 94s
+00000-0-2dd30481-99cb-46df-9302-f8e29d0c265d.parquet: queued 331166 docs, 106s
+00000-0-375d97a5-fe66-4e9f-b505-91367f979e67.parquet: queued 368028 docs, 118s
+00000-0-4109259d-4847-4acb-a065-b705500998e5.parquet: queued 404890 docs, 131s
+00000-0-49662187-c966-4f51-8162-c37f36d7b011.parquet: queued 441752 docs, 143s
+00000-0-4a9253e5-1893-4ffa-a5e5-87afafd3f088.parquet: queued 478614 docs, 154s
+00000-0-66b5ce01-be5a-4d5f-b694-6210be3c85b3.parquet: queued 515476 docs, 166s
+00000-0-6c8f4b36-d2c1-4e69-aacd-eeb84c3fdfc5.parquet: queued 552338 docs, 178s
+00000-0-790e6436-c7ac-4095-8a11-f8c0c3b6d71c.parquet: queued 589200 docs, 191s
+00000-0-806f309c-0adb-4221-99d5-b951dea5d03f.parquet: queued 626062 docs, 203s
+00000-0-8b5ba7a8-a6be-44ac-9462-ff019ba15bed.parquet: queued 662924 docs, 215s
+00000-0-8ec34259-35d4-4d24-a01d-5dabb10e2ae7.parquet: queued 699786 docs, 227s
+00000-0-90d47f28-3314-4597-9eed-c6de0ce992e9.parquet: queued 736648 docs, 239s
+00000-0-98af5fd5-c341-4483-8165-9f4418d5f425.parquet: queued 773510 docs, 251s
+00000-0-9ea41b40-774c-4ff8-b63b-77b0eed54df0.parquet: queued 810372 docs, 263s
+00000-0-a7a0d623-491e-4c91-a2cd-9bd9eb65cbd2.parquet: queued 847234 docs, 274s
+00000-0-a80c3fe1-a216-47ba-acd3-d15d507321f5.parquet: queued 884096 docs, 287s
+00000-0-a9a8950b-5ee1-4571-80c9-ac00a4101a52.parquet: queued 920958 docs, 300s
+00000-0-b763ba05-5b0b-42a4-a984-2b6f347f2f5a.parquet: queued 957820 docs, 313s
+00000-0-bf7749f5-fef9-4637-8f93-88e6e7cd1460.parquet: queued 994682 docs, 326s
+00000-0-c0bac072-33ba-49a6-ae87-f5af68b00887.parquet: queued 1031544 docs, 340s
+00000-0-c60b0466-4144-448e-bc42-e272eeef719d.parquet: queued 1068406 docs, 352s
+00000-0-c814487e-b1c9-4908-9cbd-973083e6c3fd.parquet: queued 1105268 docs, 366s
+00000-0-d809cf4d-e9f4-4c7d-b37b-2087fd784383.parquet: queued 1142130 docs, 377s
+00000-0-fb7952ba-05d1-4609-a8c6-9d3e17922a59.parquet: queued 1178992 docs, 391s
+00000-0-ff3f1b13-705d-4f33-88ec-b75b8cdeb3db.parquet: queued 1215854 docs, 404s
+{
+  "engine": "os",
+  "index": "esci_products",
+  "version": {
+    "distribution": "opensearch",
+    "number": "3.9.0",
+    "build_type": "tar",
+    "build_hash": "4ee42a94e87f66fbf1e62a9871b1b87f91e02472",
+    "build_date": "2026-09-23T01:00:48.264305421Z",
+    "build_snapshot": false,
+    "lucene_version": "10.5.1",
+    "minimum_wire_compatibility_version": "2.19.0",
+    "minimum_index_compatibility_version": "2.0.0"
+  },
+  "docs_sent": 1215854,
+  "docs_indexed": 1215854,
+  "bulk_errors": 0,
+  "error_sample": [],
+  "bulk_workers": 4,
+  "bulk_docs": 500,
+  "bulk_secs": 405.1,
+  "input_load_secs": 0.0,
+  "input_parquet_read_secs_sum": 63.3,
+  "input": "esci.products_us_pi (Iceberg data files on MinIO)",
+  "doc_prep_secs_sum": 446.4,
+  "bulk_post_secs_sum": 1113.3,
+  "refresh_secs": 0.1,
+  "merge_settle_secs": 30.1,
+  "index_secs_total": 435.3,
+  "segments_before_force_merge": 33,
+  "force_merge_secs": 231.2,
+  "force_merge_http_status": 200,
+  "index_secs_total_incl_force_merge": 666.5,
+  "store_bytes": 4129301979,
+  "segments": 1,
+  "data_dir_bytes": 4129761710,
+  "written_at": "2026-10-27T04:05:48"
+}
+{
+  "ingestion": {
+    "bulk_wall_secs": 405.1,
+    "bulk_workers": 4,
+    "bulk_docs_per_request": 500,
+    "docs": 1215854,
+    "input_parquet_load_secs": 0.0,
+    "client_doc_prep_secs_sum": 446.4,
+    "client_bulk_request_secs_sum": 1113.3,
+    "note": "doc prep (JSON/ndjson serialisation) runs in the 4 worker processes interleaved with posting; *_sum fields are summed over workers, so the server-side share of bulk wall time ~= bulk_wall_secs * request_sum / (prep_sum + request_sum)",
+    "est_server_share_of_bulk_wall_secs": 289.2
+  },
+  "indexing": {
+    "bulk_wall_secs": 405.1,
+    "final_refresh_secs": 0.1,
+    "merge_settle_secs": 30.1,
+    "force_merge_secs": 231.2,
+    "force_merge": "max_num_segments=1 after merges settled",
+    "segments_before_force_merge": 33,
+    "total_incl_force_merge_secs": 666.5,
+    "total_until_searchable_and_merges_settled_secs": 435.3
+  },
+  "index_size": {
+    "store_bytes": 4129301979,
+    "data_dir_bytes(du)": 4129761710,
+    "segments_after_settle": 1,
+    "split": {
+      "vector_bytes(vec/vex/vem*)": 3782962225,
+      "other_bytes(text postings, norms, ids, keywords, ...)": 346339376
+    }
+  }
+}
+INDEX-DONE
